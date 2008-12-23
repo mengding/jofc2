@@ -25,7 +25,11 @@ import ofc4j.util.BarConverter;
 
 
 public class BarChart extends Element {   
-    private String colour;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6695611795831460343L;
+	private String colour;
     
     public BarChart() {
         this(Style.NORMAL);

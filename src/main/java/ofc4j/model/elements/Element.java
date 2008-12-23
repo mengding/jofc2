@@ -23,7 +23,11 @@ import java.util.List;
 import ofc4j.model.metadata.Alias;
 
 public abstract class Element implements Serializable{
-    private final String type;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3975314200083173622L;
+	private final String type;
     private Float alpha;
     private String text;
     @Alias("font-size") private Integer fontSize;

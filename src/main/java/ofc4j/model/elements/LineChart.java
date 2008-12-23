@@ -24,7 +24,12 @@ import ofc4j.model.metadata.Converter;
 import ofc4j.util.DotConverter;
 
 public class LineChart extends Element {
-    private static transient final Integer DEFAULT_FONTSIZE = 10;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8807130855547088579L;
+
+	private static transient final Integer DEFAULT_FONTSIZE = 10;
     
     private Integer width;
     @Alias("dot-size") private Integer dotSize;

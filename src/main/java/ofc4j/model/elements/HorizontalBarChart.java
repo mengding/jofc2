@@ -24,7 +24,11 @@ import ofc4j.util.HorizontalBarChartBarConverter;
 
 
 public class HorizontalBarChart extends Element {
-    private String colour;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3320580794787784639L;
+	private String colour;
     
     public HorizontalBarChart() {
         super("hbar");

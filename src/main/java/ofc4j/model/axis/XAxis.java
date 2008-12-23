@@ -21,7 +21,11 @@ import java.util.List;
 import ofc4j.model.metadata.Alias;
 
 public class XAxis extends Axis {
-    @Alias("tick-height") private Integer tick_height;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7007897621631089309L;
+	@Alias("tick-height") private Integer tick_height;
     private XAxisLabels labels = new XAxisLabels();
     
     public XAxis setTickHeight(Integer tick_height) {

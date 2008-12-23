@@ -27,7 +27,11 @@ import ofc4j.model.metadata.Converter;
 import ofc4j.util.PieChartSliceConverter;
 
 public class PieChart extends Element {
-    @Alias("start-angle") private Integer startAngle;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8853434988212173862L;
+	@Alias("start-angle") private Integer startAngle;
     private Collection<String> colours;
     private Boolean animate;
     private Integer border;
@@ -114,7 +118,11 @@ public class PieChart extends Element {
     
     @Converter(PieChartSliceConverter.class)
     public static class Slice implements Serializable{
-        private final String label;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 6961394996186973937L;
+		private final String label;
         private final Number value;
         
         public Slice(Number value, String label) {

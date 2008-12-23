@@ -35,7 +35,12 @@ import ofc4j.util.StackValueConverter;
  * collection.
  */
 public class StackedBarChart extends Element {
-    public StackedBarChart() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4495162733156231531L;
+
+	public StackedBarChart() {
         super("bar_stack");
     }
     
