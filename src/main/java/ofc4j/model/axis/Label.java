@@ -16,10 +16,12 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 package ofc4j.model.axis;
 
+import java.io.Serializable;
+
 import ofc4j.model.metadata.Converter;
 import ofc4j.util.RotationConverter;
 
-public class Label {
+public class Label implements Serializable{
     private String text;
     private String colour;
     private Integer size;

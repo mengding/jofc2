@@ -16,6 +16,7 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 package ofc4j.model.elements;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,6 +31,7 @@ public class PieChart extends Element {
     private Collection<String> colours;
     private Boolean animate;
     private Integer border;
+    @Alias("no-labels") private Boolean noLabels;
     
     public PieChart() {
         super("pie");
@@ -111,7 +113,7 @@ public class PieChart extends Element {
     }
     
     @Converter(PieChartSliceConverter.class)
-    public static class Slice {
+    public static class Slice implements Serializable{
         private final String label;
         private final Number value;
         
@@ -127,9 +129,26 @@ public class PieChart extends Element {
         public String getLabel() {
             return label;
         }
+        /**
+         * Method getText() is depreceaded but kept for backwards compatibility with OFCJ
+         * @return
+         */
+        public String getText() {
+      	  return label;
+        }
     }
     
     private synchronized void checkColours() {
         if (colours == null) colours = new ArrayList<String>();
     }
+
+	
+	public Boolean getNoLabels() {
+		return noLabels;
+	}
+
+	
+	public void setNoLabels(Boolean noLabels) {
+		this.noLabels = noLabels;
+	}
 }
