@@ -25,7 +25,11 @@ import ofc4j.util.ScatterChartPointConverter;
 
 public class ScatterChart extends Element {
     
-    private String colour;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3029567780918048503L;
+	private String colour;
     @Alias("dot-size") private Integer dotSize;
     
     protected ScatterChart(String type) {

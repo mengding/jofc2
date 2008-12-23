@@ -19,7 +19,11 @@ package ofc4j.model;
 import java.io.Serializable;
 
 public class Text implements Serializable{
-    private String text;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2390229886841547192L;
+	private String text;
     private String style;
     
     public Text() {

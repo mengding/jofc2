@@ -116,7 +116,12 @@ public class Test {
     }
     
     private static class CustomLabel extends Label {
-        public CustomLabel(String text) {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 4413205234001064315L;
+
+		public CustomLabel(String text) {
             setSize(30);
             setRotation(Rotation.DIAGONAL);
             setColour("#0000ff");

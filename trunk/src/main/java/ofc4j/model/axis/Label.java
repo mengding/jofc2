@@ -22,7 +22,15 @@ import ofc4j.model.metadata.Converter;
 import ofc4j.util.RotationConverter;
 
 public class Label implements Serializable{
-    private String text;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6976582830606939527L;
+	/**
+	 * 
+	 */
+	
+	private String text;
     private String colour;
     private Integer size;
     private Rotation rotate;

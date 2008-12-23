@@ -19,7 +19,11 @@ package ofc4j.model.elements;
 import ofc4j.model.metadata.Alias;
 
 public class FilledBarChart extends BarChart {
-    private static final transient String TYPE = "bar_filled";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3471991868191065273L;
+	private static final transient String TYPE = "bar_filled";
     @Alias("outline-colour") private String outlineColour;
     
     public FilledBarChart() {

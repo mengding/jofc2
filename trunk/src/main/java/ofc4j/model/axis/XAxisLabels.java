@@ -23,7 +23,11 @@ import java.util.List;
 import ofc4j.OFC;
 
 public class XAxisLabels extends Label {
-    private Integer steps;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6134375829177947590L;
+	private Integer steps;
     private List<Object> labels;
     
     public XAxisLabels() {

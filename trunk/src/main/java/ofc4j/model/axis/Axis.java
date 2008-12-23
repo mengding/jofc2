@@ -21,7 +21,11 @@ import java.io.Serializable;
 import ofc4j.model.metadata.Alias;
 
 public abstract class Axis implements Serializable{
-    private Integer stroke;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4823643361437691998L;
+	private Integer stroke;
     private String colour;
     @Alias("grid-colour") private String grid_colour;
     private Integer steps;

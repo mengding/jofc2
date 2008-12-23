@@ -19,7 +19,11 @@ package ofc4j.model.elements;
 import ofc4j.model.metadata.Alias;
 
 public class SketchBarChart extends FilledBarChart {
-    private static final transient String TYPE = "bar_sketch";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7562070898232847510L;
+	private static final transient String TYPE = "bar_sketch";
     @Alias("offset") private Integer funFactor;
     
     public SketchBarChart() {

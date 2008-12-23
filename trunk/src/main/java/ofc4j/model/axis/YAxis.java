@@ -21,7 +21,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class YAxis extends Axis {
-    private Integer tick_length;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7471159737831995334L;
+	private Integer tick_length;
     private List<String> labels;
     
     public YAxis setTickLength(Integer tick_length) {

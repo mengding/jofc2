@@ -19,7 +19,12 @@ package ofc4j.model.elements;
 import ofc4j.model.metadata.Alias;
 
 public class AreaHollowChart extends LineChart {
-    private static transient final Float DEFAULT_ALPHA = 0.35f;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6023248458467056064L;
+
+	private static transient final Float DEFAULT_ALPHA = 0.35f;
     
     @Alias("fill-alpha") private Float fillAlpha;
     

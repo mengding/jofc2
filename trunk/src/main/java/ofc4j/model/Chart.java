@@ -34,6 +34,10 @@ import ofc4j.model.elements.Element;
  */
 public class Chart implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1868082240169089976L;
 	private Text title;
 	private XAxis x_axis;
 	private YAxis y_axis;
