@@ -16,17 +16,19 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 package ofc4j.model.elements;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import ofc4j.model.metadata.Alias;
 
-public abstract class Element {
+public abstract class Element implements Serializable{
     private final String type;
     private Float alpha;
     private String text;
     @Alias("font-size") private Integer fontSize;
     @Alias("tip") private String tooltip;
+    @Alias("gradient-fill") private Boolean gradientFill;
     private List<Object> values = new ArrayList<Object>();
     
     protected Element(String type) {
@@ -76,5 +78,15 @@ public abstract class Element {
     public String getTooltip() {
         return tooltip;
     }
+
+	
+	public Boolean getGradientFill() {
+		return gradientFill;
+	}
+
+	
+	public void setGradientFill(Boolean gradientFill) {
+		this.gradientFill = gradientFill;
+	}
     
 }

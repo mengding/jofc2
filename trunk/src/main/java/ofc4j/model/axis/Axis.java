@@ -16,9 +16,11 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 package ofc4j.model.axis;
 
+import java.io.Serializable;
+
 import ofc4j.model.metadata.Alias;
 
-public abstract class Axis {
+public abstract class Axis implements Serializable{
     private Integer stroke;
     private String colour;
     @Alias("grid-colour") private String grid_colour;

@@ -16,7 +16,9 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 package ofc4j.model;
 
-public class Text {
+import java.io.Serializable;
+
+public class Text implements Serializable{
     private String text;
     private String style;
     
