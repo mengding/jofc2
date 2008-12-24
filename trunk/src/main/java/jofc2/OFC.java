@@ -43,7 +43,6 @@ import jofc2.model.elements.StackedBarChart;
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,6 +50,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.ConverterMatcher;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
+
 
 /**
  * <p>This is the class responsible for converting a Chart object into the JSON
