@@ -26,18 +26,14 @@ import jofc2.model.axis.XAxis;
 import jofc2.model.axis.YAxis;
 import jofc2.model.elements.Element;
 
-
 /**
  * This is the most important class in the Java OFC library. Start here,
  * configuring the title, axes, legends, labels, and draw-able elements in your
  * chart. Coerce the object to a String with the toString() method to get the
  * chart data back out.
  */
-public class Chart implements Serializable{
+public class Chart implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1868082240169089976L;
 	private Text title;
 	private XAxis x_axis;
@@ -46,6 +42,10 @@ public class Chart implements Serializable{
 	private Text y_legend;
 	private Text x_legend;
 	private String bg_colour;
+	private int is_decimal_separator_comma = 0;
+	private int is_fixed_num_decimals_forced = 0;
+	private int is_thousand_separator_disabled = 0;
+	private int num_decimals = 2;
 	private Collection<Element> elements = new ArrayList<Element>();
 
 	public XAxis getXAxis() {
@@ -162,5 +162,80 @@ public class Chart implements Serializable{
 	 */
 	public String toString() throws OFCException {
 		return OFC.getInstance().render(this);
+	}
+
+	/**
+	 * Returns <code>true</code> if a comma is used as decimal separator and
+	 * <code>false</code> if a dot is used as decimal separator.
+	 */
+	public boolean isDecimalSeparatorComma() {
+		return is_decimal_separator_comma == 1;
+	}
+
+	/**
+	 * Configures the symbols used to format decimal numbers. If the given value
+	 * is <code>false</code> the American format (e.g. 1,234.45) is used. If the
+	 * given value is <code>true</code> the German format (1.234,45) is used.
+	 * Other formats like the French one are not yet supported by OFC.
+	 * 
+	 * @param is_decimal_separator_comma
+	 *           <code>true</code> sets the decimal format to German,
+	 *           <code>false</code> to American.
+	 */
+	public void setDecimalSeparatorIsComma(boolean is_decimal_separator_comma) {
+		this.is_decimal_separator_comma = is_decimal_separator_comma ? 1 : 0;
+	}
+
+	/**
+	 * Returns <code>true</code> if decimals are fixed to num_decimals and
+	 * <code>false</code> if not.
+	 */
+	public boolean isFixedNumDecimalsForced() {
+		return is_fixed_num_decimals_forced == 1;
+	}
+
+	/**
+	 * Configures OFC to use fixed decimals (with num_decimals length). E.g.
+	 * num_decimals=2 for <code>true</code> 1.1 will be 1.10 or 1 will be 1.00,
+	 * for <code>false</code> 1.1 remains 1.1 and 1 remains 1
+	 * 
+	 * @param is_fixed_num_decimals_forced
+	 *           <code>true</code> sets OFC to use fixed decimal length
+	 *           <code>false</code> switches off fixed decimal length
+	 */
+	public void setFixedNumDecimalsForced(boolean is_fixed_num_decimals_forced) {
+		this.is_fixed_num_decimals_forced = is_fixed_num_decimals_forced ? 1 : 0;
+	}
+
+	/**
+	 * Returns <code>true</code> if thousand separators are used (e.g. 1.000 or
+	 * 1,000... depending on is_decimal_separator_comma), <code>false</code>
+	 * otherwise.
+	 */
+	public boolean isThousandSeparatorDisabled() {
+		return is_thousand_separator_disabled == 1;
+	}
+
+	/**
+	 * <code>true</code> turns on the thousand separator (e.g. 1.000 or 1,000...
+	 * depending on is_decimal_separator_comma) <code>false</code> turns of the
+	 * thousand separator (e.g. 1000)
+	 */
+	public void setThousandSeparatorDisabled(boolean is_thousand_separator_disabled) {
+		this.is_thousand_separator_disabled = is_thousand_separator_disabled ? 1 : 0;
+	}
+
+	/**
+	 * Returns the max number of decimals printed out in OFC. <br />
+	 */
+	public int getNumDecimals() {
+		return num_decimals;
+	}
+   /**
+    * Sets the max number of decimals printed out in OFC.<br />
+    * Allowed values 0 - 16. <br/>
+    */
+	public void setNumDecimals(int num_decimals) {
+		this.num_decimals = num_decimals;
 	}
 }
