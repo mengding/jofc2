@@ -20,15 +20,11 @@
 		<mkdir dir="${doc.dir}" />
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${build.dir}/classes" />
-		<mkdir dir="${build.dir}/test-classes" />
-		<mkdir dir="${build.dir}/test-reports" />
 	</target>
 
 	<target name="build">
 		<antcall target="-prepare" />
 		<antcall target="-build-main" />
-		<antcall target="-build-test" />
-		<antcall target="-run-tests" />
 	</target>
 
 	<target name="-build-main">
@@ -66,15 +62,19 @@
 
 
 	<target name="-source-archive">
-		<zip destfile="${dist.src.zip}" basedir="${src.dir}" compress="true" />
+		<zip destfile="${dist.src.zip}" compress="true" >
+			<zipfileset file="LICENSE.txt" />
+			<zipfileset dir="${src.dir}" />
+			</zip>
 	</target>
 
 	<target name="-standard-archive">
 		<antcall target="doc" />
 		<zip destfile="${dist.standard.zip}" compress="true">
 			<zipfileset dir="${doc.dir}" prefix="doc" />
-			<zipfileset dir="lib/depends" prefix="lib" />
+			<zipfileset dir="lib" prefix="lib" />
 			<zipfileset file="${dist.src.zip}" />
+			<zipfileset file="LICENSE.txt" />
 			<zipfileset file="${dist.standard.jar}" />
 		</zip>
 	</target>
