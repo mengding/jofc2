@@ -163,6 +163,15 @@ public class Chart implements Serializable {
 	public String toString() throws OFCException {
 		return OFC.getInstance().render(this);
 	}
+	
+	/**
+	 * Returns a well formatted JSON File which is much more easy for debugging
+	 * (toString() returns only one line)
+	 * @return
+	 */
+	public String toDebugString() {
+		return OFC.getInstance().prettyPrint(this, 3);
+	}
 
 	/**
 	 * Returns <code>true</code> if a comma is used as decimal separator and
