@@ -163,10 +163,11 @@ public class Chart implements Serializable {
 	public String toString() throws OFCException {
 		return OFC.getInstance().render(this);
 	}
-	
+
 	/**
 	 * Returns a well formatted JSON File which is much more easy for debugging
 	 * (toString() returns only one line)
+	 * 
 	 * @return
 	 */
 	public String toDebugString() {
@@ -240,11 +241,47 @@ public class Chart implements Serializable {
 	public int getNumDecimals() {
 		return num_decimals;
 	}
-   /**
-    * Sets the max number of decimals printed out in OFC.<br />
-    * Allowed values 0 - 16. <br/>
-    */
+
+	/**
+	 * Sets the max number of decimals printed out in OFC.<br />
+	 * Allowed values 0 - 16. <br/>
+	 */
 	public void setNumDecimals(int num_decimals) {
 		this.num_decimals = num_decimals;
+	}
+
+	public void computeYAxisRange(int steps) {
+		double min = 0;
+		double max = 0;
+		double stepWidth = 1;
+		if (getElements() != null) {
+			if (getYAxis() == null) {
+				YAxis ya = new YAxis();
+				this.setYAxis(ya);
+			}
+			for (Element e : getElements()) {
+				max = Math.max(max, e.getMaxValue());
+				min = Math.min(min, e.getMinValue());
+			}
+			stepWidth = getStepWidth(Math.abs(max - min), steps);
+			min = Math.floor(min / stepWidth) * stepWidth;
+			max = Math.ceil(max / stepWidth) * stepWidth;
+			getYAxis().setRange((int) min, (int) max, (int) stepWidth);
+			
+					}
+	}
+
+	private double getStepWidth(double distance, int steps) {
+		double result = distance / steps;
+		double exponent = Math.floor(Math.log10(result))+1;
+		result = result / Math.pow(10, exponent);
+		if (result > 0.5) {
+			result = 1;
+		} else if (result > 0.25) {
+			result = 0.5;
+		} else {
+			result = 0.25;
+		}
+		return result * Math.pow(10, exponent);
 	}
 }

@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.model.axis;
 
 import java.io.Serializable;
@@ -21,89 +20,87 @@ import java.io.Serializable;
 import jofc2.model.metadata.Converter;
 import jofc2.util.RotationConverter;
 
+public class Label implements Serializable {
 
-public class Label implements Serializable{
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6976582830606939527L;
 	/**
 	 * 
 	 */
-	
 	private String text;
-    private String colour;
-    private Integer size;
-    private Rotation rotate;
-    private Boolean visible;
-    
-    @Converter(RotationConverter.class)
-    public static enum Rotation {
-        VERTICAL("vertical"),
-        DIAGONAL("diagonal"),
-        HORIZONTAL("horizontal");
-        
-        private final String text;
-        Rotation(String text) {
-            this.text = text;
-        }
-        
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
-    
-    public Label() {
-        this(null);
-    }
-    
-    public Label(String text) {
-        setText(text);
-    }
+	private String colour;
+	private Integer size;
+	private Rotation rotate;
+	private Boolean visible;
 
-    public String getText() {
-        return text;
-    }
+	@Converter(RotationConverter.class)
+	public static enum Rotation {
+		VERTICAL(-90), HALF_DIAGONAL(-24), DIAGONAL(-45), HORIZONTAL(0);
 
-    public Label setText(String text) {
-        this.text = text;
-        return this;
-    }
+		private final int degrees;
 
-    public String getColour() {
-        return colour;
-    }
+		Rotation(int degrees) {
+			this.degrees = degrees;
+		}
 
-    public Label setColour(String colour) {
-        this.colour = colour;
-        return this;
-    }
+		@Override
+		public String toString() {
+			return String.valueOf(degrees);
+		}
+	}
 
-    public Integer getSize() {
-        return size;
-    }
+	public Label() {
+		this(null);
+	}
 
-    public Label setSize(Integer size) {
-        this.size = size;
-        return this;
-    }
+	public Label(String text) {
+		setText(text);
+	}
 
-    public Rotation getRotation() {
-        return rotate;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public Label setRotation(Rotation rotate) {
-        this.rotate = rotate;
-        return this;
-    }
+	public Label setText(String text) {
+		this.text = text;
+		return this;
+	}
 
-    public Boolean getVisible() {
-        return visible;
-    }
+	public String getColour() {
+		return colour;
+	}
 
-    public Label setVisible(Boolean visible) {
-        this.visible = visible;
-        return this;
-    }
+	public Label setColour(String colour) {
+		this.colour = colour;
+		return this;
+	}
+
+	public Integer getSize() {
+		return size;
+	}
+
+	public Label setSize(Integer size) {
+		this.size = size;
+		return this;
+	}
+
+	public Rotation getRotation() {
+		return rotate;
+	}
+
+	public Label setRotation(Rotation rotate) {
+		this.rotate = rotate;
+		return this;
+	}
+
+	public Boolean getVisible() {
+		return visible;
+	}
+
+	public Label setVisible(Boolean visible) {
+		this.visible = visible;
+		return this;
+	}
 }

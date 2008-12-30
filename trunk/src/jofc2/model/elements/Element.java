@@ -12,86 +12,165 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.model.elements;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import jofc2.model.elements.BarChart.Bar;
+import jofc2.model.elements.LineChart.Dot;
+import jofc2.model.elements.PieChart.Slice;
+
 import jofc2.model.metadata.Alias;
 
+public abstract class Element implements Serializable {
 
-public abstract class Element implements Serializable{
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3975314200083173622L;
 	private final String type;
-    private Float alpha;
-    private String text;
-    @Alias("font-size") private Integer fontSize;
-    @Alias("tip") private String tooltip;
-    @Alias("gradient-fill") private Boolean gradientFill;
-    private List<Object> values = new ArrayList<Object>();
-    
-    protected Element(String type) {
-        this.type = type;
-    }
-    
-    public String getType() {
-        return type;
-    }
+	private Float alpha;
+	private String text;
+	@Alias("font-size")
+	private Integer fontSize;
+	@Alias("tip")
+	private String tooltip;
+	@Alias("gradient-fill")
+	private Boolean gradientFill;
+	private List<Object> values = new ArrayList<Object>();
 
-    public Float getAlpha() {
-        return alpha;
-    }
+	protected Element(String type) {
+		this.type = type;
+	}
 
-    public Element setAlpha(Float alpha) {
-        this.alpha = alpha;
-        return this;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public Float getAlpha() {
+		return alpha;
+	}
 
-    public Element setText(String text) {
-        this.text = text;
-        return this;
-    }
+	public Element setAlpha(Float alpha) {
+		this.alpha = alpha;
+		return this;
+	}
 
-    public Integer getFontSize() {
-        return fontSize;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public Element setFontSize(Integer fontSize) {
-        this.fontSize = fontSize;
-        return this;
-    }
-    
-    public List<Object> getValues() {
-        return values;
-    }
-    
-    public Element setTooltip(String tooltip) {
-        this.tooltip = tooltip;
-        return this;
-    }
-    
-    public String getTooltip() {
-        return tooltip;
-    }
+	public Element setText(String text) {
+		this.text = text;
+		return this;
+	}
 
-	
+	public Integer getFontSize() {
+		return fontSize;
+	}
+
+	public Element setFontSize(Integer fontSize) {
+		this.fontSize = fontSize;
+		return this;
+	}
+
+	public List<Object> getValues() {
+		return values;
+	}
+
+	public Element setTooltip(String tooltip) {
+		this.tooltip = tooltip;
+		return this;
+	}
+
+	public String getTooltip() {
+		return tooltip;
+	}
+
 	public Boolean getGradientFill() {
 		return gradientFill;
 	}
 
-	
 	public void setGradientFill(Boolean gradientFill) {
 		this.gradientFill = gradientFill;
 	}
-    
+
+	/**
+	 * Returns the maximum value (double) of the given Element Supports only the
+	 * Elements Dot, Bar, Slice and Horizontal Bar
+	 */
+	public double getMaxValue() {
+		double max = 0.0;
+		for (Object obj : getValues()) {
+			if (obj != null) {
+				if (obj instanceof Number) {
+					max = Math.max(max, ((Number) obj).doubleValue());
+				} else if (obj instanceof Dot) {
+					max = Math.max(max, ((Dot) obj).getValue() != null ? ((Dot) obj).getValue()
+							.doubleValue() : 0);
+				} else if (obj instanceof Bar) {
+					max = Math.max(max, ((Bar) obj).getTop() != null ? ((Bar) obj).getTop()
+							.doubleValue() : 0);
+					max = Math.max(max, ((Bar) obj).getBottom() != null ? ((Bar) obj).getBottom()
+							.doubleValue() : 0);
+				} else if (obj instanceof Slice) {
+					max = Math.max(max, ((Slice) obj).getValue() != null ? ((Slice) obj).getValue()
+							.doubleValue() : 0);
+				} else if (obj instanceof jofc2.model.elements.HorizontalBarChart.Bar) {
+					max = Math.max(max,
+							((jofc2.model.elements.HorizontalBarChart.Bar) obj).getLeft() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getLeft()
+									.doubleValue()
+									: 0);
+					max = Math.max(max,
+							((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight()
+									.doubleValue()
+									: 0);
+				} else {
+					throw new IllegalArgumentException("Cannot process Objects of Class: " + String.valueOf(obj.getClass()));
+				}
+			}
+		}
+		return max;
+	}
+
+	/**
+	 * Returns the minimum value (double) of the given Element Supports only the
+	 * Elements Dot, Bar, Slice and Horizontal Bar
+	 */
+	public double getMinValue() {
+		double min = 0.0;
+		for (Object obj : getValues()) {
+			if (obj != null) {
+				if (obj instanceof Number) {
+					min = Math.min(min, ((Number) obj).doubleValue());
+				} else if (obj instanceof Dot) {
+					min = Math.min(min, ((Dot) obj).getValue() != null ? ((Dot) obj).getValue()
+							.doubleValue() : 0);
+				} else if (obj instanceof Bar) {
+					min = Math.min(min, ((Bar) obj).getTop() != null ? ((Bar) obj).getTop()
+							.doubleValue() : 0);
+					min = Math.min(min, ((Bar) obj).getBottom() != null ? ((Bar) obj).getBottom()
+							.doubleValue() : 0);
+				} else if (obj instanceof Slice) {
+					min = Math.min(min, ((Slice) obj).getValue() != null ? ((Slice) obj).getValue()
+							.doubleValue() : 0);
+				} else if (obj instanceof jofc2.model.elements.HorizontalBarChart.Bar) {
+					min = Math.min(min,
+							((jofc2.model.elements.HorizontalBarChart.Bar) obj).getLeft() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getLeft()
+									.doubleValue()
+									: 0);
+					min = Math.min(min,
+							((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight()
+									.doubleValue()
+									: 0);
+				} else {
+					throw new IllegalArgumentException("Cannot process Objects of Class: " + String.valueOf(obj.getClass()));
+				}
+			}
+		}
+		return min;
+	}
 }

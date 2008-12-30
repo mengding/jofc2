@@ -19,6 +19,7 @@ package jofc2.model.elements;
 import java.util.Arrays;
 import java.util.List;
 
+
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.BarConverter;
@@ -143,4 +144,5 @@ public class BarChart extends Element {
             return this;
         }
     }
+
 }
