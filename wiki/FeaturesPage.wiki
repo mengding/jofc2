@@ -1,0 +1,8 @@
+#New Features in JOFC2 1.0
+
+= Feature Page =
+We 'll try to list all new features in JOFC2 1.0 here
+
+
+ * JSON Debugoutput
+   instead of
