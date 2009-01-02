@@ -52,4 +52,4 @@ chart.setThousandSeparatorDisabled(boolean is_thousand_separator_disabled);
 chart.setFixedNumDecimalsForced(boolean is_fixed_num_decimals_forced);
 chart.setNumDecimals(int num_decimals);
 }}}
-More information is provided in the [http://scireum.de/jofc2/javadoc/]Javadocs
+More information is provided in the Javadocs see: [http://scireum.de/jofc2/javadoc/]
