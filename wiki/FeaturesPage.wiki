@@ -32,8 +32,14 @@ Chart.toString() gives you one big string in one line which is no problem for op
 and so on
 
 == Autocompute YAxis Range ==
-For some reason OpenflashChart itself cannot determine a propper YAxis. You have to set one by your self with: {{{YAxis.setRange(int min, int max, int stepsize);}}}
-If you have dynamic charts with differend values you dont want to set a fix range. Therefore we implemented this method: {{{chart.computeYAxisRange(int NumOfSteps);}}}
+For some reason OpenflashChart itself cannot determine a propper YAxis. You have to set one by your self with: 
+{{{
+YAxis.setRange(int min, int max, int stepsize);
+}}}
+If you have dynamic charts with differend values you dont want to set a fix range. Therefore we implemented this method: 
+{{{
+chart.computeYAxisRange(int NumOfSteps);
+}}}
 NumOfSteps is the number of Steps you want in your chart (a good value is from 10 to 15 Steps).
 Call this method *after* you populated the chart object with data. This method works actually with line- and barcharts. 
 
@@ -46,3 +52,4 @@ chart.setThousandSeparatorDisabled(boolean is_thousand_separator_disabled);
 chart.setFixedNumDecimalsForced(boolean is_fixed_num_decimals_forced);
 chart.setNumDecimals(int num_decimals);
 }}}
+More information is provided in the Javadocs
