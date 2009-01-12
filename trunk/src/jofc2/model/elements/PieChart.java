@@ -130,6 +130,7 @@ public class PieChart extends Element {
 		 */
 		private static final long serialVersionUID = 6961394996186973937L;
 		private final String label;
+		private String tip;
         private final Number value;
         
         public Slice(Number value, String label) {
@@ -151,6 +152,22 @@ public class PieChart extends Element {
         public String getText() {
       	  return label;
         }
+
+		/**
+		 * Gets the tip Text for the slice. If Tip isset it overrides the label
+		 * @return
+		 */
+		public String getTip() {
+			return tip;
+		}
+
+		/**
+		 * Sets the tip Text for the slice. If Tip isset it overrides the label
+		 * @param tip the Text to set
+		 */
+		public void setTip(String tip) {
+			this.tip = tip;
+		}
     }
     
     private synchronized void checkColours() {

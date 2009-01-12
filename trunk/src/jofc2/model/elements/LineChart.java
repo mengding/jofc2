@@ -81,14 +81,15 @@ public class LineChart extends Element {
 	}
 
 	public LineChart addValues(List<Number> values) {
-		
-		// We convert all Numbers to Dots for better handling of null values	
-		 
-		for(Number number : values){
-			this.addDots(new Dot(number));
+		// We convert all Numbers to Dots except Null Values they are Converted to a Null Element
+		// as Dots with the value null are interpreted as Zero from OFC and null Values themself are interpolated
+		for (Number number : values) {
+			if (number == null) {
+				getValues().add(new NullElement());
+			} else {
+				getValues().add(number);
+			}
 		}
-
-
 		return this;
 	}
 
@@ -185,6 +186,4 @@ public class LineChart extends Element {
 			return style;
 		}
 	}
-
-
 }

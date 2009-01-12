@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2;
 
 import java.lang.reflect.Array;
@@ -36,6 +35,7 @@ import jofc2.model.elements.Element;
 import jofc2.model.elements.FilledBarChart;
 import jofc2.model.elements.HorizontalBarChart;
 import jofc2.model.elements.LineChart;
+import jofc2.model.elements.NullElement;
 import jofc2.model.elements.PieChart;
 import jofc2.model.elements.ScatterChart;
 import jofc2.model.elements.SketchBarChart;
@@ -49,144 +49,186 @@ import org.json.JSONObject;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.ConverterMatcher;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
-import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
-
 
 /**
- * <p>This is the class responsible for converting a Chart object into the JSON
- * string which feeds the charting widget.  There is no need to make explicit
- * use of this class, but if necessary, there are several ways to do so:</p>
+ * <p>
+ * This is the class responsible for converting a Chart object into the JSON
+ * string which feeds the charting widget. There is no need to make explicit use
+ * of this class, but if necessary, there are several ways to do so:
+ * </p>
  * <ol>
  * <li>The "instance" field contains a static instance of an OFC object.</li>
- * <li>The Chart object overrides toString() and uses this instance to render itself.</li>
- * <li>For tricky threading situations, you may prefer to create and manage instances of OFC yourself.</li>  
+ * <li>The Chart object overrides toString() and uses this instance to render
+ * itself.</li>
+ * <li>For tricky threading situations, you may prefer to create and manage
+ * instances of OFC yourself.</li>
  * </ol>
- * <p>Theoretically, XStream (the JSON conversion library used here) is thread-safe, but
- * it does not hurt to have the option to synchronize or to have thread local instances,
- * whatever may be necessary.</p>
+ * <p>
+ * Theoretically, XStream (the JSON conversion library used here) is
+ * thread-safe, but it does not hurt to have the option to synchronize or to
+ * have thread local instances, whatever may be necessary.
+ * </p>
  */
 public class OFC {
-    private static final Class<?>[] models = new Class<?>[] {
-        Chart.class, Axis.class, Text.class, XAxis.class, YAxis.class, 
-        XAxisLabels.class, Label.class, Element.class, Axis.class, 
-        BarChart.class, PieChart.class, HorizontalBarChart.class, 
-        LineChart.class, ScatterChart.class, AreaHollowChart.class,
-        PieChart.Slice.class, HorizontalBarChart.Bar.class, Label.Rotation.class,
-        ScatterChart.Point.class, FilledBarChart.class, SketchBarChart.class,
-        StackedBarChart.class, StackedBarChart.StackValue.class, StackedBarChart.Stack.class,
-        BarChart.Bar.class, FilledBarChart.Bar.class, SketchBarChart.Bar.class,
-        LineChart.Dot.class
-    };
-    
-    private final XStream converter = new XStream(new JsonHierarchicalStreamDriver());
-    
-    /**
-     * Sole constructor.
-     */
-    public OFC() {
-        for (Class<?> c : models) {
-            doAlias(c);
-            doRegisterConverter(c);
-        }
-    }
-    
-    public static OFC getInstance() {
-        return LazyInstance.instance;
-    }
 
-    private void doAlias(Class<?> c) {
-        if (c.isAnnotationPresent(Alias.class)) {
-            converter.alias(c.getAnnotation(Alias.class).value(), c);
-        }
-        for (Field f : c.getDeclaredFields()) {
-            if (f.isAnnotationPresent(Alias.class)) {
-                converter.aliasField(f.getAnnotation(Alias.class).value(), c, f.getName());
-            }
-        }
-    }
-    
-    private void doRegisterConverter(Class<?> c) {
-        if (c.isAnnotationPresent(Converter.class)) {
-            Class<? extends ConverterMatcher> clazz = c.getAnnotation(Converter.class).value();
-            try {
-                if (SingleValueConverter.class.isAssignableFrom(clazz)) {
-                    converter.registerConverter((SingleValueConverter) clazz.newInstance());
-                } else {
-                    converter.registerConverter((com.thoughtworks.xstream.converters.Converter) clazz.newInstance());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }   
-    }
-    
-    /**
-     * Use this method in your applications to send data back to the chart widget.
-     * @param c the chart to render
-     * @throws OFCException when rendering fails
-     * @return the JSONified chart data
-     */
-    public String render(Chart c) throws OFCException {
-        String json = converter.toXML(c);
-        try {
-            return new JSONObject(json).getString(Chart.class.getName());
-        } catch (JSONException je) {
-            throw new OFCException(json, je);
-        }
-    }
-    
-    /**
-     * Use this method for debugging purposes.
-     * @param c the chart to render
-     * @param indentationLevel number of spaces to use for indentation
-     * @throws OFCException when rendering fails
-     * @return pretty-printed JSONified chart data
-     */
-    public String prettyPrint(Chart c, int indentationLevel) throws OFCException {
-        String json = converter.toXML(c);
-        try {
-            return new JSONObject(json).getJSONObject(Chart.class.getName()).toString(indentationLevel);
-        } catch (JSONException je) {
-            throw new OFCException(json, je);
-        }
-    }
-    
-    /**
-     * Convenience method for converting Collections to Arrays.  You can use this where the API
-     * has limited support for collections:
-     * getLabels().addLabels(OFC.toArray(stringList, String.class));
-     * @param collection The collection to use
-     * @param type The supertype for the collection.  This will commonly be Integer, Number, etc.
-     * @return the array of the collection
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T[] toArray(Collection<T> collection, Class<? extends T> type) {
-        return collection.toArray((T[]) Array.newInstance(type, collection.size()));
-    }
-    
-    /**
-     * Convenience method to generate labels from a collection of Objects, if so desired.
-     * @param source the source collection holding Objects.
-     * @return a collection of all the objects toString() method invoked
-     */
-    public static List<String> stringify(List<? extends Object> source) {
-        List<String> strings = new ArrayList<String>(source.size());
-        for (Object o : source) {
-            strings.add(o.toString());
-        }
-        return strings;
-    }
-    
-    /**
-     * Convenience method to generate labels from an array of disparate Objects.
-     * @param objects the array of objects to convert
-     * @return a collection of all the objects toString() result
-     */
-    public static String[] stringify(Object... objects) {
-        return stringify(Arrays.asList(objects)).toArray(new String[objects.length]);
-    }
+	private static final Class<?>[] models = new Class<?>[] { Chart.class,
+			Axis.class,
+			Text.class,
+			XAxis.class,
+			YAxis.class,
+			XAxisLabels.class,
+			Label.class,
+			Element.class,
+			Axis.class,
+			BarChart.class,
+			PieChart.class,
+			HorizontalBarChart.class,
+			LineChart.class,
+			ScatterChart.class,
+			AreaHollowChart.class,
+			PieChart.Slice.class,
+			HorizontalBarChart.Bar.class,
+			Label.Rotation.class,
+			ScatterChart.Point.class,
+			FilledBarChart.class,
+			SketchBarChart.class,
+			StackedBarChart.class,
+			StackedBarChart.StackValue.class,
+			StackedBarChart.Stack.class,
+			BarChart.Bar.class,
+			FilledBarChart.Bar.class,
+			SketchBarChart.Bar.class,
+			LineChart.Dot.class,
+			NullElement.class,
+			Chart.class };
+	private final XStream converter = new XStream(new OFCJSONDriver());
+
+	/**
+	 * Sole constructor.
+	 */
+	public OFC() {
+		for (Class<?> c : models) {
+			doAlias(c);
+			doRegisterConverter(c);
+		}
+	}
+
+	public static OFC getInstance() {
+		return LazyInstance.instance;
+	}
+
+	private void doAlias(Class<?> c) {
+		if (c.isAnnotationPresent(Alias.class)) {
+			converter.alias(c.getAnnotation(Alias.class).value(), c);
+		}
+		for (Field f : c.getDeclaredFields()) {
+			if (f.isAnnotationPresent(Alias.class)) {
+				converter.aliasField(f.getAnnotation(Alias.class).value(), c, f.getName());
+			}
+		}
+	}
+
+	private void doRegisterConverter(Class<?> c) {
+		if (c.isAnnotationPresent(Converter.class)) {
+			Class<? extends ConverterMatcher> clazz = c.getAnnotation(Converter.class).value();
+			try {
+				if (SingleValueConverter.class.isAssignableFrom(clazz)) {
+					converter.registerConverter((SingleValueConverter) clazz.newInstance());
+				} else {
+					converter.registerConverter((com.thoughtworks.xstream.converters.Converter) clazz.newInstance());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Use this method in your applications to send data back to the chart
+	 * widget.
+	 * 
+	 * @param c
+	 *           the chart to render
+	 * @throws OFCException
+	 *            when rendering fails
+	 * @return the JSONified chart data
+	 */
+	public String render(Chart c) throws OFCException {
+		String json = converter.toXML(c);
+		try {
+			return new JSONObject(json).getString(Chart.class.getName());
+		} catch (JSONException je) {
+			throw new OFCException(json, je);
+		}
+	}
+
+	/**
+	 * Use this method for debugging purposes.
+	 * 
+	 * @param c
+	 *           the chart to render
+	 * @param indentationLevel
+	 *           number of spaces to use for indentation
+	 * @throws OFCException
+	 *            when rendering fails
+	 * @return pretty-printed JSONified chart data
+	 */
+	public String prettyPrint(Chart c, int indentationLevel) throws OFCException {
+		String json = converter.toXML(c);
+		try {
+			return new JSONObject(json).getJSONObject(Chart.class.getName())
+					.toString(indentationLevel);
+		} catch (JSONException je) {
+			throw new OFCException(json, je);
+		}
+	}
+
+	/**
+	 * Convenience method for converting Collections to Arrays. You can use this
+	 * where the API has limited support for collections:
+	 * getLabels().addLabels(OFC.toArray(stringList, String.class));
+	 * 
+	 * @param collection
+	 *           The collection to use
+	 * @param type
+	 *           The supertype for the collection. This will commonly be Integer,
+	 *           Number, etc.
+	 * @return the array of the collection
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T[] toArray(Collection<T> collection, Class<? extends T> type) {
+		return collection.toArray((T[]) Array.newInstance(type, collection.size()));
+	}
+
+	/**
+	 * Convenience method to generate labels from a collection of Objects, if so
+	 * desired.
+	 * 
+	 * @param source
+	 *           the source collection holding Objects.
+	 * @return a collection of all the objects toString() method invoked
+	 */
+	public static List<String> stringify(List<? extends Object> source) {
+		List<String> strings = new ArrayList<String>(source.size());
+		for (Object o : source) {
+			strings.add(o.toString());
+		}
+		return strings;
+	}
+
+	/**
+	 * Convenience method to generate labels from an array of disparate Objects.
+	 * 
+	 * @param objects
+	 *           the array of objects to convert
+	 * @return a collection of all the objects toString() result
+	 */
+	public static String[] stringify(Object... objects) {
+		return stringify(Arrays.asList(objects)).toArray(new String[objects.length]);
+	}
 }
 
 class LazyInstance {
-    protected static final OFC instance = new OFC();
+
+	protected static final OFC instance = new OFC();
 }

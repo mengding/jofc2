@@ -64,7 +64,9 @@ public class HorizontalBarChart extends Element {
     
     public HorizontalBarChart addValues(List<Number> rightValues) {
    	 for (Number number : rightValues){
+   		 if (number!=null){
    		 this.addBars(new Bar(number));
+   		 }
    	 }
 
         return this;
