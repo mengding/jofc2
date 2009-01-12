@@ -51,7 +51,11 @@ public class BarChart extends Element {
     }
     
     public BarChart addValues(List<Number> values) {
-        getValues().addAll(values);
+   	 
+   	 for (Number number : values){
+   		 this.addBars(new Bar(number));
+   	 }
+
         return this;
     }
     

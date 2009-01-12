@@ -99,7 +99,13 @@ public class PieChart extends Element {
     }
     
     public PieChart addValues(List<Number> values) {
-        getValues().addAll(values);
+   	 for (Number number:values){
+   		 // Ignore null values cause they dont make sense in pie Charts
+   		 if (number != null){
+   			 getValues().add(number);
+   		 }
+   		 
+   	 }
         return this;
     }
     

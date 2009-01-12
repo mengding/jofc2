@@ -31,7 +31,7 @@ public class HorizontalBarChartBarConverter extends ConverterBase<Bar> {
     
     @Override
     public void convert(Bar o, PathTrackingWriter writer, MarshallingContext mc) {
-        writeNode(writer, "right", o.getRight());
-        writeNode(writer, "left", o.getLeft());
+        writeNode(writer, "right", o.getRight(),false);
+        writeNode(writer, "left", o.getLeft(),false);
     }
 }

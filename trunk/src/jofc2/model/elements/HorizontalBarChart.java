@@ -44,13 +44,13 @@ public class HorizontalBarChart extends Element {
         return this;
     }
     
-    public HorizontalBarChart addBars(Bar... values) {
-        getValues().addAll(Arrays.asList(values));
+    public HorizontalBarChart addBars(Bar... bars) {
+        getValues().addAll(Arrays.asList(bars));
         return this;
     }
     
-    public HorizontalBarChart addBars(List<Bar> values) {
-        getValues().addAll(values);
+    public HorizontalBarChart addBars(List<Bar> bars) {
+        getValues().addAll(bars);
         return this;
     }
         
@@ -63,7 +63,10 @@ public class HorizontalBarChart extends Element {
     }
     
     public HorizontalBarChart addValues(List<Number> rightValues) {
-        getValues().addAll(rightValues);
+   	 for (Number number : rightValues){
+   		 this.addBars(new Bar(number));
+   	 }
+
         return this;
     }
     

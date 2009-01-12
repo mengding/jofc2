@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.util;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -24,24 +23,27 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 
 public abstract class ConverterBase<T> implements Converter {
-    @Override
-    public final Object unmarshal(HierarchicalStreamReader arg0, UnmarshallingContext arg1) {
-        return null;
-    }
-    
-    @Override
-    @SuppressWarnings("unchecked")
-    public final void marshal(Object o, HierarchicalStreamWriter hsw, MarshallingContext mc) {
-        convert((T) o, (PathTrackingWriter) hsw, mc);
-    }
-    
-    public final void writeNode(PathTrackingWriter writer, String name, Object o) {
-        if (o != null) {
-            writer.startNode(name, o.getClass());
-            writer.setValue(o.toString());
-            writer.endNode();
-        }
-    }
-    
-    public abstract void convert(T o, PathTrackingWriter writer, MarshallingContext mc);
+
+	@Override
+	public final Object unmarshal(HierarchicalStreamReader arg0, UnmarshallingContext arg1) {
+		return null;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public final void marshal(Object o, HierarchicalStreamWriter hsw, MarshallingContext mc) {
+		convert((T) o, (PathTrackingWriter) hsw, mc);
+	}
+
+	public final void writeNode(PathTrackingWriter writer, String name, Object o, boolean ignoreNull) {
+		if (ignoreNull && o == null) {
+			return;
+		}
+		//Tell xstream to treat null values as integers so that quotes are omitted.
+		writer.startNode(name, o == null ? Integer.class : o.getClass());
+		writer.setValue(o == null ? "null" : o.toString());
+		writer.endNode();
+	}
+
+	public abstract void convert(T o, PathTrackingWriter writer, MarshallingContext mc);
 }

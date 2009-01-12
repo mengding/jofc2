@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.util;
 
 import jofc2.model.elements.StackedBarChart.StackValue;
@@ -23,15 +22,15 @@ import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 
 public class StackValueConverter extends ConverterBase<StackValue> {
 
-    @Override
-    public void convert(StackValue o, PathTrackingWriter writer, MarshallingContext mc) {
-        writeNode(writer, "val", o.getValue());
-        writeNode(writer, "colour", o.getColour());
-    }
+	@Override
+	public void convert(StackValue o, PathTrackingWriter writer, MarshallingContext mc) {
+		writeNode(writer, "val", o.getValue(), false);
+		writeNode(writer, "colour", o.getColour(), true);
+	}
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public boolean canConvert(Class clazz) {
-        return StackValue.class.isAssignableFrom(clazz);
-    }
+	@Override
+	@SuppressWarnings("unchecked")
+	public boolean canConvert(Class clazz) {
+		return StackValue.class.isAssignableFrom(clazz);
+	}
 }

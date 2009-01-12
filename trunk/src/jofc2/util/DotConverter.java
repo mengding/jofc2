@@ -24,10 +24,10 @@ import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 public class DotConverter extends ConverterBase<Dot> {
     @Override
     public void convert(Dot o, PathTrackingWriter writer, MarshallingContext mc) {
-        writeNode(writer, "value", o.getValue());
-        writeNode(writer, "colour", o.getColour());
-        writeNode(writer, "dot-size", o.getDotSize());
-        writeNode(writer, "halo-size", o.getHaloSize());
+        writeNode(writer, "value", o.getValue(),false);
+        writeNode(writer, "colour", o.getColour(),true);
+        writeNode(writer, "dot-size", o.getDotSize(),true);
+        writeNode(writer, "halo-size", o.getHaloSize(),true);
     }
 
     @Override
