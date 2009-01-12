@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.util;
 
 import jofc2.model.elements.ScatterChart;
@@ -23,15 +22,16 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 
 public class ScatterChartPointConverter extends ConverterBase<Point> {
-    @Override
-    @SuppressWarnings("unchecked")
-    public boolean canConvert(Class c) {
-        return ScatterChart.Point.class.isAssignableFrom(c);
-    }
 
-    @Override
-    public void convert(Point o, PathTrackingWriter writer, MarshallingContext mc) {
-        writeNode(writer, "x", o.getX());
-        writeNode(writer, "y", o.getY());
-    }
+	@Override
+	@SuppressWarnings("unchecked")
+	public boolean canConvert(Class c) {
+		return ScatterChart.Point.class.isAssignableFrom(c);
+	}
+
+	@Override
+	public void convert(Point o, PathTrackingWriter writer, MarshallingContext mc) {
+		writeNode(writer, "x", o.getX(), false);
+		writeNode(writer, "y", o.getY(), false);
+	}
 }

@@ -18,6 +18,7 @@ package jofc2.model.elements;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import jofc2.model.metadata.Converter;
@@ -136,11 +137,14 @@ public class StackedBarChart extends Element {
         }
         
         public Stack addValues(Number... numbers) {
-            return doAdd(Arrays.asList(numbers));
+            return addValues(Arrays.asList(numbers));
         }
         
         public Stack addValues(List<Number> numbers) {
-            return doAdd(numbers);
+      	  for (Number number: numbers){
+      		  this.doAdd(Collections.singletonList(new StackValue(number)));
+      	  }
+            return this;
         }
         
         private Stack doAdd(List<? extends Object> values) {

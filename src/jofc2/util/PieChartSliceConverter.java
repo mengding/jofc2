@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.util;
 
 import jofc2.model.elements.PieChart;
@@ -23,15 +22,16 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 
 public class PieChartSliceConverter extends ConverterBase<Slice> {
-    @Override
-    @SuppressWarnings("unchecked")
-    public boolean canConvert(Class c) {
-        return PieChart.Slice.class.isAssignableFrom(c);
-    }
 
-    @Override
-    public void convert(Slice o, PathTrackingWriter writer, MarshallingContext mc) {
-        writeNode(writer, "value", o.getValue());
-        writeNode(writer, "label", o.getLabel());
-    }
+	@Override
+	@SuppressWarnings("unchecked")
+	public boolean canConvert(Class c) {
+		return PieChart.Slice.class.isAssignableFrom(c);
+	}
+
+	@Override
+	public void convert(Slice o, PathTrackingWriter writer, MarshallingContext mc) {
+		writeNode(writer, "value", o.getValue(), false);
+		writeNode(writer, "label", o.getLabel(), true);
+	}
 }

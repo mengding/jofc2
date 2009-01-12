@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.util;
 
 import jofc2.model.elements.BarChart;
@@ -24,23 +23,24 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 
 public class BarConverter extends ConverterBase<BarChart.Bar> {
-    @Override
-    public void convert(BarChart.Bar b, PathTrackingWriter writer, MarshallingContext mc) {
-        writeNode(writer, "top", b.getTop());
-        writeNode(writer, "bottom", b.getBottom());
-        writeNode(writer, "colour", b.getColour());
-        writeNode(writer, "tip", b.getTooltip());
-        if (b instanceof FilledBarChart.Bar) {
-            writeNode(writer, "outline-colour", ((FilledBarChart.Bar)b).getOutlineColour());
-        }
-        if (b instanceof SketchBarChart.Bar) {
-            writeNode(writer, "offset", ((SketchBarChart.Bar)b).getFunFactor());
-        }
-    }
-    
-    @Override
-    @SuppressWarnings("unchecked")
-    public boolean canConvert(Class clazz) {
-        return BarChart.Bar.class.isAssignableFrom(clazz);
-    }
+
+	@Override
+	public void convert(BarChart.Bar b, PathTrackingWriter writer, MarshallingContext mc) {
+		writeNode(writer, "top", b.getTop(), false);
+		writeNode(writer, "bottom", b.getBottom(), false);
+		writeNode(writer, "colour", b.getColour(), true);
+		writeNode(writer, "tip", b.getTooltip(), true);
+		if (b instanceof FilledBarChart.Bar) {
+			writeNode(writer, "outline-colour", ((FilledBarChart.Bar) b).getOutlineColour(), true);
+		}
+		if (b instanceof SketchBarChart.Bar) {
+			writeNode(writer, "offset", ((SketchBarChart.Bar) b).getFunFactor(), true);
+		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public boolean canConvert(Class clazz) {
+		return BarChart.Bar.class.isAssignableFrom(clazz);
+	}
 }

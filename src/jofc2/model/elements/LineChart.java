@@ -81,7 +81,14 @@ public class LineChart extends Element {
 	}
 
 	public LineChart addValues(List<Number> values) {
-		getValues().addAll(values);
+		
+		// We convert all Numbers to Dots for better handling of null values	
+		 
+		for(Number number : values){
+			this.addDots(new Dot(number));
+		}
+
+
 		return this;
 	}
 
