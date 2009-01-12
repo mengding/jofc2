@@ -33,5 +33,6 @@ public class PieChartSliceConverter extends ConverterBase<Slice> {
 	public void convert(Slice o, PathTrackingWriter writer, MarshallingContext mc) {
 		writeNode(writer, "value", o.getValue(), false);
 		writeNode(writer, "label", o.getLabel(), true);
+		writeNode(writer, "tip", o.getTip(), true);
 	}
 }

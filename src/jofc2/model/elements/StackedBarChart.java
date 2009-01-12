@@ -142,7 +142,9 @@ public class StackedBarChart extends Element {
         
         public Stack addValues(List<Number> numbers) {
       	  for (Number number: numbers){
+      		  if (number != null) {
       		  this.doAdd(Collections.singletonList(new StackValue(number)));
+      		  }
       	  }
             return this;
         }

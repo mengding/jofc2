@@ -128,6 +128,8 @@ public abstract class Element implements Serializable {
 							((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight()
 									.doubleValue()
 									: 0);
+				} else if (obj instanceof NullElement) {
+					/* No action */
 				} else {
 					throw new IllegalArgumentException("Cannot process Objects of Class: " + String.valueOf(obj.getClass()));
 				}
@@ -166,6 +168,8 @@ public abstract class Element implements Serializable {
 							((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight()
 									.doubleValue()
 									: 0);
+				} else if (obj instanceof NullElement) {
+					/* No action */
 				} else {
 					throw new IllegalArgumentException("Cannot process Objects of Class: " + String.valueOf(obj.getClass()));
 				}

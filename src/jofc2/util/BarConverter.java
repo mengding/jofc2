@@ -27,7 +27,7 @@ public class BarConverter extends ConverterBase<BarChart.Bar> {
 	@Override
 	public void convert(BarChart.Bar b, PathTrackingWriter writer, MarshallingContext mc) {
 		writeNode(writer, "top", b.getTop(), false);
-		writeNode(writer, "bottom", b.getBottom(), false);
+		writeNode(writer, "bottom", b.getBottom(), true);
 		writeNode(writer, "colour", b.getColour(), true);
 		writeNode(writer, "tip", b.getTooltip(), true);
 		if (b instanceof FilledBarChart.Bar) {
