@@ -53,3 +53,6 @@ chart.setFixedNumDecimalsForced(boolean is_fixed_num_decimals_forced);
 chart.setNumDecimals(int num_decimals);
 }}}
 More information is provided in the Javadocs see: [http://scireum.de/jofc2/javadoc/]
+
+== Better Handling of Null Values ==
+JOFC2 now handles null values e.g. in LineCharts. If you have null values you should use LineCharts.addValues(Numbers...) instead of making Dots and add them to the LineChart. Because OFC handels DOts with the value null als value Zero. Null values themself are handled as interpolated values. The bug is reported to OFC here: [http://forums.openflashchart.com/viewtopic.php?f=5&t=490]
