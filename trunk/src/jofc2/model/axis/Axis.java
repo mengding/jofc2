@@ -34,6 +34,7 @@ public abstract class Axis implements Serializable{
     @Alias("3d") private Integer threed;
     private Integer min;
     private Integer max;
+
     
     public Integer getStroke() {
         return stroke;
@@ -103,4 +104,5 @@ public abstract class Axis implements Serializable{
     public Axis setRange(Integer min, Integer max) {
         return setRange(min, max, getSteps());
     }
+
 }

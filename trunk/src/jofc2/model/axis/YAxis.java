@@ -12,54 +12,51 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.model.axis;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class YAxis extends Axis {
-    /**
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7471159737831995334L;
 	private Integer tick_length;
-    private List<String> labels;
-    
-    public YAxis setTickLength(Integer tick_length) {
-        this.tick_length = tick_length;
-        return this;
-    }
-    
-    public Integer getTickLength() {
-        return tick_length;
-    }
-    
-    public YAxis setLabels(String... labels) {
-        checkLabels();
-        this.labels.clear();
-        return addLabels(labels);
-    }
-    
-    public YAxis addLabels(String... labels) {
-        checkLabels();
-        this.labels.addAll(Arrays.asList(labels));
-        return this;
-    }
-    
-    public YAxis addLabels(List<String> labels) {
-        checkLabels();
-        this.labels.addAll(labels);
-        return this;
-    }
-    
-    public List<String> getLabels() {
-        return labels;
-    }
-    
-    private synchronized void checkLabels() {
-        if (labels == null) labels = new ArrayList<String>();
-    }    
+	//private List<String> labels;
+	private YAxisLabels labels = new YAxisLabels();
+
+	public YAxis setTickLength(Integer tick_length) {
+		this.tick_length = tick_length;
+		return this;
+	}
+
+	public Integer getTickLength() {
+		return tick_length;
+	}
+
+	public YAxis setLabels(String... labels) {
+		this.labels = new YAxisLabels(labels);
+		return this;
+	}
+	public YAxis setLabels(List<String> labels) {
+		this.labels = new YAxisLabels(labels);
+		return this;
+	}
+
+	public YAxis addLabels(String... labels) {
+		this.labels.addLabels(labels);
+		return this;
+	}
+
+	public YAxis addLabels(List<Label> labels) {
+		this.labels.addLabels(labels);
+		return this;
+	}
+
+	public YAxisLabels getLabels() {
+		
+		return this.labels;
+	}
 }
