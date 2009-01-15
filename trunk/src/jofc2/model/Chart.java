@@ -266,9 +266,9 @@ public class Chart implements Serializable {
 			stepWidth = getStepWidth(Math.abs(max - min), steps);
 			min = Math.floor(min / stepWidth) * stepWidth;
 			max = Math.ceil(max / stepWidth) * stepWidth;
-			getYAxis().setRange((int) min, (int) max, (int) stepWidth);
+			getYAxis().setRange(min, max, stepWidth);
 			
-					}
+		}
 	}
 
 	private double getStepWidth(double distance, int steps) {
