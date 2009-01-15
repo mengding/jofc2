@@ -29,11 +29,11 @@ public abstract class Axis implements Serializable{
 	private Integer stroke;
     private String colour;
     @Alias("grid-colour") private String grid_colour;
-    private Integer steps;
+    private Double steps;
     private Integer offset;
     @Alias("3d") private Integer threed;
-    private Integer min;
-    private Integer max;
+    private Double min;
+    private Double max;
 
     
     public Integer getStroke() {
@@ -57,11 +57,15 @@ public abstract class Axis implements Serializable{
         this.grid_colour = grid_colour;
         return this;
     }
-    public Integer getSteps() {
+    public Double getSteps() {
         return steps;
     }
-    public Axis setSteps(Integer steps) {
+    public Axis setSteps(Double steps) {
         this.steps = steps;
+        return this;
+    }
+    public Axis setSteps(Integer steps) {
+        this.steps = steps.doubleValue();
         return this;
     }
     public Integer getOffset() {
@@ -79,29 +83,36 @@ public abstract class Axis implements Serializable{
         this.threed = threed;
         return this;
     }
-    public Integer getMin() {
+    public Double getMin() {
         return min;
     }
-    public Axis setMin(Integer min) {
+    public Axis setMin(Double min) {
         this.min = min;
         return this;
     }
-    public Integer getMax() {
+    public Axis setMin(Integer min) {
+        this.min = min.doubleValue();
+        return this;
+    }
+    public Double getMax() {
         return max;
     }
-    public Axis setMax(Integer max) {
+    public Axis setMax(Double max) {
         this.max = max;
         return this;
     }
-    
-    public Axis setRange(Integer min, Integer max, Integer step) {
-        setMin(min);
-        setMax(max);
-        setSteps(step);
+    public Axis setMax(Integer max) {
+        this.max = max.doubleValue();
+        return this;
+    }
+    public Axis setRange(Number min, Number max, Number step) {
+        setMin(min.doubleValue());
+        setMax(max.doubleValue());
+        setSteps(step.doubleValue());
         return this;
     }
     
-    public Axis setRange(Integer min, Integer max) {
+    public Axis setRange(Number min, Number max) {
         return setRange(min, max, getSteps());
     }
 
