@@ -25,6 +25,7 @@ import jofc2.OFCException;
 import jofc2.model.axis.XAxis;
 import jofc2.model.axis.YAxis;
 import jofc2.model.elements.Element;
+import jofc2.model.elements.Legend;
 
 /**
  * This is the most important class in the Java OFC library. Start here,
@@ -47,6 +48,7 @@ public class Chart implements Serializable {
 	private int is_thousand_separator_disabled = 0;
 	private int num_decimals = 2;
 	private Collection<Element> elements = new ArrayList<Element>();
+	private Legend legend;
 
 	public XAxis getXAxis() {
 		return x_axis;
@@ -283,5 +285,15 @@ public class Chart implements Serializable {
 			result = 0.25;
 		}
 		return result * Math.pow(10, exponent);
+	}
+
+	
+	public Legend getLegend() {
+		return legend;
+	}
+
+	
+	public void setLegend(Legend legend) {
+		this.legend = legend;
 	}
 }
