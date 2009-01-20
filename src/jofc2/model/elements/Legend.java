@@ -27,6 +27,10 @@ public class Legend {
 		return position;
 	}
 
+	/**
+	 * Sets the position of the legend. Actually there is only the right side
+	 * supported
+	 */
 	public void setPosition(String position) {
 		this.position = position;
 	}
@@ -35,6 +39,10 @@ public class Legend {
 		return visible;
 	}
 
+	/**
+	 * Determines if the legend should be rendered or not (atm you should set it
+	 * to true if you pass a legend to chart)
+	 */
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
@@ -43,6 +51,9 @@ public class Legend {
 		return bg_colour;
 	}
 
+	/**
+	 * Sets the backgroud color of the legend. E.g. "#FFFFFF" for white
+	 */
 	public void setBg_colour(String bg_colour) {
 		this.bg_colour = bg_colour;
 	}
@@ -51,6 +62,10 @@ public class Legend {
 		return border_color;
 	}
 
+	/**
+	 * Sets the border color of the legend. E.g. "#FFFFFF" for white
+	 * 
+	 */
 	public void setBorder_color(String border_color) {
 		this.border_color = border_color;
 	}
@@ -59,6 +74,10 @@ public class Legend {
 		return shadow;
 	}
 
+	/**
+	 * Switch if shadows should be used or not
+	 * 
+	 */
 	public void setShadow(boolean shadow) {
 		this.shadow = shadow;
 	}
@@ -67,6 +86,12 @@ public class Legend {
 		return margin;
 	}
 
+	/**
+	 * "margin" defines the number of pixel spacing around the outside of the
+	 * right side legend box. This can be used to adjust how close the legend
+	 * appears to the edge of the window and to the right side Y legend or right
+	 * edge of the chart if there is no right side legend.
+	 */
 	public void setMargin(Integer margin) {
 		this.margin = margin;
 	}
@@ -75,6 +100,9 @@ public class Legend {
 		return alpha;
 	}
 
+	/**
+	 * Sets the alpha (transparency value) of the legend.
+	 */
 	public void setAlpha(int alpha) {
 		this.alpha = alpha;
 	}
@@ -83,6 +111,10 @@ public class Legend {
 		return padding;
 	}
 
+	/**
+	 * "padding" defines a number of pixels to place between the labels and the
+	 * border of the right side legend
+	 */
 	public void setPadding(int padding) {
 		this.padding = padding;
 	}
@@ -91,6 +123,10 @@ public class Legend {
 		return border;
 	}
 
+	/**
+	 * "border" defines whether or not to draw a border line around the right
+	 * side legend box.
+	 */
 	public void setBorder(boolean border) {
 		this.border = border;
 	}
@@ -99,6 +135,10 @@ public class Legend {
 		return stroke;
 	}
 
+	/**
+	 * "stroke" defines the size of the border line around the right side legend
+	 * box.
+	 */
 	public void setStroke(int stroke) {
 		this.stroke = stroke;
 	}
