@@ -9,9 +9,9 @@ This roadmap contains dates for upcoming releases along with a short description
 == V1.0 - RC1 24th December 2008 == 
  * Adopt sources from ofcj1.0-alpha5 and fix open issues (_done_)
 == V1.0 - RC2 15th January 2008 == 
- * Verify correctness and completness of JSON models (jofc2 vs. OFC)
- * Build a high-level API to ease creation of charts.
- * Autocompute ranges for Bar- and Line-Charts.
+ * Verify correctness and completness of JSON models (jofc2 vs. OFC) (_done_)
+ * Build a high-level API to ease creation of charts. (_done_)
+ * Autocompute ranges for Bar- and Line-Charts. (_done_)
  * Set of default colors to ease the usage of pie charts or bar charts
 == V1.0 - RC3 31th January 2009 ==
  * Test, Fix, Test, Fix, Release *yay*
