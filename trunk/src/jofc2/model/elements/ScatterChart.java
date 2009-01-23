@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.model.elements;
 
 import java.util.Arrays;
@@ -23,74 +22,73 @@ import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.ScatterChartPointConverter;
 
-
 public class ScatterChart extends Element {
-    
-    /**
-	 * 
-	 */
+
+	private static final String TYPE = "scatter";
 	private static final long serialVersionUID = 3029567780918048503L;
 	private String colour;
-    @Alias("dot-size") private Integer dotSize;
-    
-    protected ScatterChart(String type) {
-        super("scatter");
-    }
-    
-    public ScatterChart addPoints(Point... points) {
-        getValues().addAll(Arrays.asList(points));
-        return this;
-    }
-    
-    public ScatterChart addPoint(Number x, Number y) {
-        return addPoints(new Point(x, y));
-    }
-    
-    public ScatterChart addPoints(Collection<Point> points) {
-        getValues().addAll(points);
-        return this;
-    }
+	@Alias("dot-size")
+	private Integer dotSize;
 
-    public String getColour() {
-        return colour;
-    }
+	public ScatterChart() {
+		super(TYPE);
+	}
 
-    public void setColour(String colour) {
-        this.colour = colour;
-    }
+	public ScatterChart addPoints(Point... points) {
+		getValues().addAll(Arrays.asList(points));
+		return this;
+	}
 
-    public Integer getDotSize() {
-        return dotSize;
-    }
+	public ScatterChart addPoint(Number x, Number y) {
+		return addPoints(new Point(x, y));
+	}
 
-    public void setDotSize(Integer dotSize) {
-        this.dotSize = dotSize;
-    }
+	public ScatterChart addPoints(Collection<Point> points) {
+		getValues().addAll(points);
+		return this;
+	}
 
-    @Converter(ScatterChartPointConverter.class)
-    public static class Point {
-        private Number x;
-        private Number y;
-        
-        public Point(Number x, Number y) {
-            this.x = x;
-            this.y = y;
-        }
+	public String getColour() {
+		return colour;
+	}
 
-        public Number getX() {
-            return x;
-        }
+	public void setColour(String colour) {
+		this.colour = colour;
+	}
 
-        public void setX(Number x) {
-            this.x = x;
-        }
+	public Integer getDotSize() {
+		return dotSize;
+	}
 
-        public Number getY() {
-            return y;
-        }
+	public void setDotSize(Integer dotSize) {
+		this.dotSize = dotSize;
+	}
 
-        public void setY(Number y) {
-            this.y = y;
-        }
-    }
+	@Converter(ScatterChartPointConverter.class)
+	public static class Point {
+
+		private Number x;
+		private Number y;
+
+		public Point(Number x, Number y) {
+			this.x = x;
+			this.y = y;
+		}
+
+		public Number getX() {
+			return x;
+		}
+
+		public void setX(Number x) {
+			this.x = x;
+		}
+
+		public Number getY() {
+			return y;
+		}
+
+		public void setY(Number y) {
+			this.y = y;
+		}
+	}
 }
