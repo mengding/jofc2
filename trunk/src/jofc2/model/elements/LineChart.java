@@ -35,6 +35,22 @@ public class LineChart extends Element {
 	@Alias("halo-size")
 	private Integer haloSize;
 	private String colour;
+	private String axis;
+
+	public String getYaxis() {
+		return axis;
+	}
+
+	public void setYAxis(String yAxis) {
+		this.axis = yAxis;
+	}
+
+	/**
+	 * Tells the LineChart to Use the right YAxis
+	 */
+	public void setRightYAxis(){
+		setYAxis("right");
+	}
 
 	public LineChart() {
 		this(Style.NORMAL);
