@@ -34,6 +34,10 @@ public class ScatterChart extends Element {
 		super(TYPE);
 	}
 
+    public ScatterChart(Style style){
+        super(style.getStyle());
+    }
+
 	public ScatterChart addPoints(Point... points) {
 		getValues().addAll(Arrays.asList(points));
 		return this;
@@ -89,6 +93,20 @@ public class ScatterChart extends Element {
 
 		public void setY(Number y) {
 			this.y = y;
+		}
+	}
+
+    public static enum Style {
+		NORMAL("scatter"), LINE("scatter_line");
+
+		private String style;
+
+		Style(String style) {
+			this.style = style;
+		}
+
+		public String getStyle() {
+			return style;
 		}
 	}
 }
