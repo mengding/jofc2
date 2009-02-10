@@ -67,7 +67,9 @@ public abstract class Element implements Serializable {
 	public String getText() {
 		return text;
 	}
-
+   /**
+    * The Text is used to represent the Element in the legend. If text is null the element will not appear in the legend
+    */
 	public Element setText(String text) {
 		this.text = text;
 		return this;
