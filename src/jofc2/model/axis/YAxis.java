@@ -19,13 +19,9 @@ import java.util.List;
 
 public class YAxis extends Axis {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7471159737831995334L;
 	private Integer tick_length;
-	//private List<String> labels;
-	private YAxisLabels labels = new YAxisLabels();
+	private YAxisLabels labels;
 
 	public YAxis setTickLength(Integer tick_length) {
 		this.tick_length = tick_length;
@@ -40,23 +36,32 @@ public class YAxis extends Axis {
 		this.labels = new YAxisLabels(labels);
 		return this;
 	}
+
 	public YAxis setLabels(List<String> labels) {
 		this.labels = new YAxisLabels(labels);
 		return this;
 	}
 
 	public YAxis addLabels(String... labels) {
+		if (this.labels == null) {
+			this.labels = new YAxisLabels();
+		}
 		this.labels.addLabels(labels);
 		return this;
 	}
 
 	public YAxis addLabels(List<Label> labels) {
+		if (this.labels == null) {
+			this.labels = new YAxisLabels();
+		}
 		this.labels.addLabels(labels);
 		return this;
 	}
 
 	public YAxisLabels getLabels() {
-		
+		if (this.labels == null) {
+			this.labels = new YAxisLabels();
+		}
 		return this.labels;
 	}
 }
