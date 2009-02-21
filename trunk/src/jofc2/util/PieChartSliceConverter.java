@@ -23,7 +23,6 @@ import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 
 public class PieChartSliceConverter extends ConverterBase<Slice> {
 
-	@Override
 	@SuppressWarnings("unchecked")
 	public boolean canConvert(Class c) {
 		return PieChart.Slice.class.isAssignableFrom(c);

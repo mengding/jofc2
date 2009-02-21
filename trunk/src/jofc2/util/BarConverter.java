@@ -38,7 +38,6 @@ public class BarConverter extends ConverterBase<BarChart.Bar> {
 		}
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
 	public boolean canConvert(Class clazz) {
 		return BarChart.Bar.class.isAssignableFrom(clazz);
