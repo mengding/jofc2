@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.util;
 
 import jofc2.model.elements.HorizontalBarChart;
@@ -23,15 +22,15 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 
 public class HorizontalBarChartBarConverter extends ConverterBase<Bar> {
-    @Override
-    @SuppressWarnings("unchecked")
-    public boolean canConvert(Class c) {
-        return HorizontalBarChart.Bar.class.isAssignableFrom(c);
-    }
-    
-    @Override
-    public void convert(Bar o, PathTrackingWriter writer, MarshallingContext mc) {
-        writeNode(writer, "right", o.getRight(),false);
-        writeNode(writer, "left", o.getLeft(),false);
-    }
+
+	@SuppressWarnings("unchecked")
+	public boolean canConvert(Class c) {
+		return HorizontalBarChart.Bar.class.isAssignableFrom(c);
+	}
+
+	@Override
+	public void convert(Bar o, PathTrackingWriter writer, MarshallingContext mc) {
+		writeNode(writer, "right", o.getRight(), false);
+		writeNode(writer, "left", o.getLeft(), false);
+	}
 }

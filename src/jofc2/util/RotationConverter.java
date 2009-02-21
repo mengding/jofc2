@@ -12,8 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.util;
 
 import jofc2.model.axis.Label.Rotation;
@@ -21,19 +20,17 @@ import jofc2.model.axis.Label.Rotation;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
 
 public class RotationConverter implements SingleValueConverter {
-    @Override
-    public Object fromString(String s) {
-        return Rotation.valueOf(s.toUpperCase());
-    }
 
-    @Override
-    public String toString(Object o) {
-        return o.toString();
-    }
+	public Object fromString(String s) {
+		return Rotation.valueOf(s.toUpperCase());
+	}
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public boolean canConvert(Class c) {
-        return Rotation.class.isAssignableFrom(c);
-    }
+	public String toString(Object o) {
+		return o.toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean canConvert(Class c) {
+		return Rotation.class.isAssignableFrom(c);
+	}
 }

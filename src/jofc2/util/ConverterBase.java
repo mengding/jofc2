@@ -24,12 +24,10 @@ import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 
 public abstract class ConverterBase<T> implements Converter {
 
-	@Override
 	public final Object unmarshal(HierarchicalStreamReader arg0, UnmarshallingContext arg1) {
 		return null;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
 	public final void marshal(Object o, HierarchicalStreamWriter hsw, MarshallingContext mc) {
 		convert((T) o, (PathTrackingWriter) hsw, mc);

@@ -9,7 +9,6 @@ import com.thoughtworks.xstream.io.path.PathTrackingWriter;
 public class NullConverter extends ConverterBase<NullElement> {
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public boolean canConvert(Class type) {
 		return NullElement.class.isAssignableFrom(type);
 	}
