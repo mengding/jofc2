@@ -9,7 +9,7 @@ the License, or (at your option) any later version.
 JOFC2 is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+GNU Lesser General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
