@@ -22,7 +22,9 @@ import java.util.Collections;
 import java.util.List;
 
 import jofc2.model.metadata.Converter;
+import jofc2.model.metadata.Alias;
 import jofc2.util.StackValueConverter;
+import jofc2.util.StackKeyConverter;
 
 
 /**
@@ -41,11 +43,36 @@ public class StackedBarChart extends Element {
 	 * 
 	 */
 	private static final long serialVersionUID = -4495162733156231531L;
+    private List<Key> keys = new ArrayList<Key>();
 
-	public StackedBarChart() {
+    public StackedBarChart() {
         super("bar_stack");
     }
-    
+
+    public List<Key> getKeys()
+    {
+        return keys;
+    }
+
+    /**
+     * Add keys to the chart (var-args version).
+     * @param keys the keys that have not yet been placed into the chart
+     * @return the chart element object being operated on
+     */
+    public StackedBarChart addKeys(Key... keys) {
+        return addKeys(Arrays.asList(keys));
+    }
+
+    /**
+     * Add keys to the chart (Collections version).
+     * @param keys the keys that have not yet been placed into the chart
+     * @return the chart element object being operated on
+     */
+    public StackedBarChart addKeys(List<Key> keys) {
+        getKeys().addAll(keys);
+        return this;
+    }
+
     /**
      * Add stacks to the chart (var-args version).
      * @param stacks the stacks that have not yet been placed into the chart
@@ -192,6 +219,54 @@ public class StackedBarChart extends Element {
         public StackValue setColour(String colour) {
             this.colour = colour;
             return this;
+        }
+    }
+
+    /**
+     * Representation of a key in the stacked bar chart.
+     */
+    @Converter(StackKeyConverter.class)
+    public static class Key {
+        private String colour;
+        private String text;
+        @Alias(value = "font-size")
+        private Integer fontSize;
+
+        public Key(String colour, String text, Integer fontSize)
+        {
+            this.colour = colour;
+            this.text = text;
+            this.fontSize = fontSize;
+        }
+
+        public String getColour()
+        {
+            return colour;
+        }
+
+        public void setColour(String colour)
+        {
+            this.colour = colour;
+        }
+
+        public String getText()
+        {
+            return text;
+        }
+
+        public void setText(String text)
+        {
+            this.text = text;
+        }
+
+        public Integer getFontSize()
+        {
+            return fontSize;
+        }
+
+        public void setFontSize(Integer fontSize)
+        {
+            this.fontSize = fontSize;
         }
     }
 }

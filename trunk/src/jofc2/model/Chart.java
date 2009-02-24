@@ -26,6 +26,7 @@ import jofc2.model.axis.XAxis;
 import jofc2.model.axis.YAxis;
 import jofc2.model.elements.Element;
 import jofc2.model.elements.Legend;
+import jofc2.model.elements.Tooltip;
 
 /**
  * This is the most important class in the Java OFC library. Start here,
@@ -49,8 +50,9 @@ public class Chart implements Serializable {
 	private int num_decimals = 2;
 	private Collection<Element> elements = new ArrayList<Element>();
 	private Legend legend;
+    private Tooltip tooltip;
 
-	public XAxis getXAxis() {
+    public XAxis getXAxis() {
 		return x_axis;
 	}
 
@@ -66,7 +68,17 @@ public class Chart implements Serializable {
 		this.setTitle(new Text(titleText, style));
 	}
 
-	public Chart setXAxis(XAxis x_axis) {
+    public Tooltip getTooltip()
+    {
+        return tooltip;
+    }
+
+    public void setTooltip(Tooltip tooltip)
+    {
+        this.tooltip = tooltip;
+    }
+
+    public Chart setXAxis(XAxis x_axis) {
 		this.x_axis = x_axis;
 		return this;
 	}
@@ -156,29 +168,27 @@ public class Chart implements Serializable {
 		return null;
 	}
 
-	@Override
-	/*
+	/**
 	 * @throws OFCException can throw an OFCException if there is a problem
 	 * rendering this Chart object. This exception would indicate an issue with
 	 * the JOFC2 library itself.
 	 */
-	public String toString() throws OFCException {
+    @Override
+    public String toString() throws OFCException {
 		return OFC.getInstance().render(this);
 	}
 
 	/**
-	 * Returns a well formatted JSON File which is much more easy for debugging
-	 * (toString() returns only one line)
-	 * 
-	 * @return
+	 * @return a well formatted JSON File which is much more easy for debugging
+     *         (toString() returns only one line)
 	 */
 	public String toDebugString() {
 		return OFC.getInstance().prettyPrint(this, 3);
 	}
 
 	/**
-	 * Returns <code>true</code> if a comma is used as decimal separator and
-	 * <code>false</code> if a dot is used as decimal separator.
+	 * @return <code>true</code> if a comma is used as decimal separator and
+	 *         <code>false</code> if a dot is used as decimal separator.
 	 */
 	public boolean isDecimalSeparatorComma() {
 		return is_decimal_separator_comma == 1;
@@ -199,8 +209,8 @@ public class Chart implements Serializable {
 	}
 
 	/**
-	 * Returns <code>true</code> if decimals are fixed to num_decimals and
-	 * <code>false</code> if not.
+	 * @return <code>true</code> if decimals are fixed to num_decimals and
+	 *         <code>false</code> if not.
 	 */
 	public boolean isFixedNumDecimalsForced() {
 		return is_fixed_num_decimals_forced == 1;
@@ -220,33 +230,34 @@ public class Chart implements Serializable {
 	}
 
 	/**
-	 * Returns <code>true</code> if thousand separators are used (e.g. 1.000 or
-	 * 1,000... depending on is_decimal_separator_comma), <code>false</code>
-	 * otherwise.
+	 * @return <code>true</code> if thousand separators are used (e.g. 1.000 or
+	 *         1,000... depending on is_decimal_separator_comma),
+     *         <code>false</code> otherwise.
 	 */
 	public boolean isThousandSeparatorDisabled() {
 		return is_thousand_separator_disabled == 1;
 	}
 
 	/**
-	 * <code>true</code> turns on the thousand separator (e.g. 1.000 or 1,000...
-	 * depending on is_decimal_separator_comma) <code>false</code> turns of the
-	 * thousand separator (e.g. 1000)
+	 * @param is_thousand_separator_disabled
+     *         <code>true</code> turns on the thousand separator (e.g. 1.000 or 1,000...
+	 *         depending on is_decimal_separator_comma)
+     *         <code>false</code> turns of the thousand separator (e.g. 1000)
 	 */
 	public void setThousandSeparatorDisabled(boolean is_thousand_separator_disabled) {
 		this.is_thousand_separator_disabled = is_thousand_separator_disabled ? 1 : 0;
 	}
 
 	/**
-	 * Returns the max number of decimals printed out in OFC. <br />
+	 * @return the max number of decimals printed out in OFC. <br />
 	 */
 	public int getNumDecimals() {
 		return num_decimals;
 	}
 
 	/**
-	 * Sets the max number of decimals printed out in OFC.<br />
-	 * Allowed values 0 - 16. <br/>
+	 * @param num_decimals the max number of decimals printed out in OFC.<br />
+	 *                     Allowed values 0 - 16. <br/>
 	 */
 	public void setNumDecimals(int num_decimals) {
 		this.num_decimals = num_decimals;
@@ -275,6 +286,7 @@ public class Chart implements Serializable {
 
 		}
 	}
+    
     private Double nullSafeMin(Double min, double doubleValue) {
         if (null == min) {
             min = doubleValue;
@@ -282,7 +294,8 @@ public class Chart implements Serializable {
         min = Math.min(min, doubleValue);
         return min;
     }
-	private double getStepWidth(double distance, int steps) {
+
+    private double getStepWidth(double distance, int steps) {
 		double result = distance / steps;
 		double exponent = Math.floor(Math.log10(result))+1;
 		result = result / Math.pow(10, exponent);
