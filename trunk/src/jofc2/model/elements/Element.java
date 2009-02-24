@@ -145,46 +145,56 @@ public abstract class Element implements Serializable {
 		return max;
 	}
 
-	/**
-	 * Returns the minimum value (double) of the given Element Supports only the
-	 * Elements Dot, Bar, Slice and Horizontal Bar
-	 */
-	public double getMinValue() {
-		double min = 0.0;
-		for (Object obj : getValues()) {
-			if (obj != null) {
-				if (obj instanceof Number) {
-					min = Math.min(min, ((Number) obj).doubleValue());
-				} else if (obj instanceof Dot) {
-					min = Math.min(min, ((Dot) obj).getValue() != null ? ((Dot) obj).getValue()
-							.doubleValue() : 0);
-				} else if (obj instanceof Bar) {
-					min = Math.min(min, ((Bar) obj).getTop() != null ? ((Bar) obj).getTop()
-							.doubleValue() : 0);
-					min = Math.min(min, ((Bar) obj).getBottom() != null ? ((Bar) obj).getBottom()
-							.doubleValue() : 0);
-				} else if (obj instanceof Slice) {
-					min = Math.min(min, ((Slice) obj).getValue() != null ? ((Slice) obj).getValue()
-							.doubleValue() : 0);
-				} else if (obj instanceof jofc2.model.elements.HorizontalBarChart.Bar) {
-					min = Math.min(min,
-							((jofc2.model.elements.HorizontalBarChart.Bar) obj).getLeft() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getLeft()
-									.doubleValue()
-									: 0);
-					min = Math.min(min,
-							((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight()
-									.doubleValue()
-									: 0);
-				} else if (obj instanceof NullElement) {
-					/* No action */
-				} else {
-					throw new IllegalArgumentException("Cannot process Objects of Class: " + String.valueOf(obj.getClass()));
-				}
-			}
-		}
-		return min;
-	}
+    /**
+     * Returns the minimum value (double) of the given Element Supports only the
+     * Elements Dot, Bar, Slice and Horizontal Bar
+     */
+    public double getMinValue() {
+        Double min = null;
+        for (Object obj : getValues()) {
+            if (obj != null) {
+                if (obj instanceof Number) {
+                    min = nullSafeMin(min, ((Number) obj).doubleValue());
+                } else if (obj instanceof Dot) {
+                    min = nullSafeMin(min, ((Dot) obj).getValue() != null ? ((Dot) obj).getValue()
+                            .doubleValue() : 0);
+                } else if (obj instanceof Bar) {
+                    min = nullSafeMin(min, ((Bar) obj).getTop() != null ? ((Bar) obj).getTop()
+                            .doubleValue() : 0);
+                    min = nullSafeMin(min, ((Bar) obj).getBottom() != null ? ((Bar) obj).getBottom()
+                            .doubleValue() : 0);
+                } else if (obj instanceof Slice) {
+                    min = nullSafeMin(min, ((Slice) obj).getValue() != null ? ((Slice) obj).getValue()
+                            .doubleValue() : 0);
+                } else if (obj instanceof jofc2.model.elements.HorizontalBarChart.Bar) {
+                    min = nullSafeMin(min,
+                            ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getLeft() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getLeft()
+                                    .doubleValue()
+                                    : 0);
+                    min = nullSafeMin(min,
+                            ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight() != null ? ((jofc2.model.elements.HorizontalBarChart.Bar) obj).getRight()
+                                    .doubleValue()
+                                    : 0);
+                } else if (obj instanceof NullElement) {
+                    /* No action */
+                } else {
+                    throw new IllegalArgumentException("Cannot process Objects of Class: " + String.valueOf(obj.getClass()));
+                }
+            }
+        }
+        if (null == min) {
+            min = 0.0;
+        }
+        return min;
+    }
 
+    private Double nullSafeMin(Double min, double doubleValue) {
+        if (null == min) {
+            min = doubleValue;
+        }
+        min = Math.min(min, doubleValue);
+        return min;
+    }
 	
 	public String getKey_on_click() {
 		return key_on_click;

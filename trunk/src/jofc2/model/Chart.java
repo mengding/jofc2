@@ -253,7 +253,7 @@ public class Chart implements Serializable {
 	}
 
 	public void computeYAxisRange(int steps) {
-		double min = 0;
+		Double min = null;
 		double max = 0;
 		double stepWidth = 1;
 		if (getElements() != null) {
@@ -263,16 +263,25 @@ public class Chart implements Serializable {
 			}
 			for (Element e : getElements()) {
 				max = Math.max(max, e.getMaxValue());
-				min = Math.min(min, e.getMinValue());
+				min = nullSafeMin(min, e.getMinValue());
 			}
-			stepWidth = getStepWidth(Math.abs(max - min), steps);
+            if (min == null) {
+                min = 0.0;
+            }
+            stepWidth = getStepWidth(Math.abs(max - min), steps);
 			min = Math.floor(min / stepWidth) * stepWidth;
 			max = Math.ceil(max / stepWidth) * stepWidth;
 			getYAxis().setRange(min, max, stepWidth);
-			
+
 		}
 	}
-
+    private Double nullSafeMin(Double min, double doubleValue) {
+        if (null == min) {
+            min = doubleValue;
+        }
+        min = Math.min(min, doubleValue);
+        return min;
+    }
 	private double getStepWidth(double distance, int steps) {
 		double result = distance / steps;
 		double exponent = Math.floor(Math.log10(result))+1;
