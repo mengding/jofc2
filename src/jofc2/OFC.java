@@ -29,17 +29,7 @@ import jofc2.model.axis.Label;
 import jofc2.model.axis.XAxis;
 import jofc2.model.axis.XAxisLabels;
 import jofc2.model.axis.YAxis;
-import jofc2.model.elements.AreaHollowChart;
-import jofc2.model.elements.BarChart;
-import jofc2.model.elements.Element;
-import jofc2.model.elements.FilledBarChart;
-import jofc2.model.elements.HorizontalBarChart;
-import jofc2.model.elements.LineChart;
-import jofc2.model.elements.NullElement;
-import jofc2.model.elements.PieChart;
-import jofc2.model.elements.ScatterChart;
-import jofc2.model.elements.SketchBarChart;
-import jofc2.model.elements.StackedBarChart;
+import jofc2.model.elements.*;
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 
@@ -71,7 +61,7 @@ import com.thoughtworks.xstream.converters.SingleValueConverter;
  */
 public class OFC {
 
-	private static final Class<?>[] models = new Class<?>[] { Chart.class,
+	private static final Class<?>[] models = new Class<?>[] {
 			Axis.class,
 			Text.class,
 			XAxis.class,
@@ -92,15 +82,18 @@ public class OFC {
 			ScatterChart.Point.class,
 			FilledBarChart.class,
 			SketchBarChart.class,
-			StackedBarChart.class,
+            StackedBarChart.class,
 			StackedBarChart.StackValue.class,
 			StackedBarChart.Stack.class,
-			BarChart.Bar.class,
+            BarChart.Bar.class,
 			FilledBarChart.Bar.class,
 			SketchBarChart.Bar.class,
 			LineChart.Dot.class,
 			NullElement.class,
-			Chart.class };
+			Chart.class,
+            ShapeChart.class,
+            ShapeChart.Point.class
+    };
 	private final XStream converter = new XStream(new OFCJSONDriver());
 
 	/**
