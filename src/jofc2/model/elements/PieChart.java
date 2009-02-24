@@ -171,9 +171,7 @@ public class PieChart extends Element {
 		}
 
 		/**
-		 * Gets the tip Text for the slice. If Tip isset it overrides the label
-		 * 
-		 * @return
+		 * @return the tip Text for the slice. If Tip isset it overrides the label
 		 */
 		public String getTip() {
 			return tip;

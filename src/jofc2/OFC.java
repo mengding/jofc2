@@ -85,6 +85,7 @@ public class OFC {
             StackedBarChart.class,
 			StackedBarChart.StackValue.class,
 			StackedBarChart.Stack.class,
+            StackedBarChart.Key.class,
             BarChart.Bar.class,
 			FilledBarChart.Bar.class,
 			SketchBarChart.Bar.class,
@@ -92,7 +93,9 @@ public class OFC {
 			NullElement.class,
 			Chart.class,
             ShapeChart.class,
-            ShapeChart.Point.class
+            ShapeChart.Point.class,
+            Tooltip.class,
+            Tooltip.Type.class
     };
 	private final XStream converter = new XStream(new OFCJSONDriver());
 

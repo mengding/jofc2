@@ -17,27 +17,22 @@ public class NullAwareJsonWriter extends JsonWriter {
 
 	public NullAwareJsonWriter(Writer writer, char[] lineIndenter) {
 		super(writer, lineIndenter);
-		// TODO Auto-generated constructor stub
 	}
 
 	public NullAwareJsonWriter(Writer writer, int mode) {
 		super(writer, mode);
-		// TODO Auto-generated constructor stub
 	}
 
 	public NullAwareJsonWriter(Writer writer, String lineIndenter, String newLine) {
 		super(writer, lineIndenter, newLine);
-		// TODO Auto-generated constructor stub
 	}
 
 	public NullAwareJsonWriter(Writer writer, String lineIndenter) {
 		super(writer, lineIndenter);
-		// TODO Auto-generated constructor stub
 	}
 
 	public NullAwareJsonWriter(Writer writer) {
 		super(writer);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

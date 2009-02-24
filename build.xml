@@ -28,14 +28,21 @@
 	</target>
 
 	<target name="-build-main">
-		<javac srcdir="src" destdir="bin" source="1.6" classpath="lib/xstream-1.3.jar" debug="${debug}" debuglevel="lines,vars,source" />
-	</target>
+		<javac srcdir="src" destdir="bin" source="1.6" debug="${debug}" debuglevel="lines,vars,source">
+            <classpath>
+                <fileset dir="lib" includes="**/*.jar" />
+            </classpath>
+        </javac>
+    </target>
 
 
 	<target name="doc">
-		<javadoc sourcepath="src" destdir="javadoc" public="true" windowtitle="jofc2 API" excludepackagenames="${doc.excludes}" defaultexcludes="no" overview="${src.dir}/overview.html">
+        <javadoc sourcepath="src" destdir="javadoc" public="true" windowtitle="jofc2 API" excludepackagenames="${doc.excludes}" defaultexcludes="no" overview="src/overview.html">
 			<link offline="false" href="http://java.sun.com/javase/6/docs/api/" />
-		</javadoc>
+            <classpath>
+                <fileset dir="lib" includes="**/*.jar" />
+            </classpath>
+        </javadoc>
 	</target>
 
 	<target name="dist" depends="build">
@@ -50,7 +57,7 @@
 				<section name="${build.name}">
 					<attribute name="Built-On" value="${TODAY}" />
 					<attribute name="Version" value="${build.version}-${build.minor}" />
-					<attribute name="URI" value="http://code.google.com/p/ofcj/" />
+					<attribute name="URI" value="http://code.google.com/p/jofc2/" />
 				</section>
 				<section name="JSONObject">
 					<attribute name="URI" value="http://www.json.org/" />
