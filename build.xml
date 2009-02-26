@@ -28,7 +28,7 @@
 	</target>
 
 	<target name="-build-main">
-		<javac srcdir="src" destdir="bin" source="1.6" debug="${debug}" debuglevel="lines,vars,source">
+		<javac srcdir="src" destdir="bin" source="1.5" target="1.5" debug="${debug}" debuglevel="lines,vars,source">
             <classpath>
                 <fileset dir="lib" includes="**/*.jar" />
             </classpath>
