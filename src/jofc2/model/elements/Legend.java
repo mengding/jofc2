@@ -1,6 +1,8 @@
 package jofc2.model.elements;
 
-public class Legend {
+import java.io.Serializable;
+
+public class Legend implements Serializable {
 
 	private String position;
 	private boolean visible;
