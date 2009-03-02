@@ -15,12 +15,15 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.axis;
 
+import jofc2.model.metadata.Alias;
+
 import java.util.List;
 
 public class YAxis extends Axis {
 
 	private static final long serialVersionUID = 7471159737831995334L;
-	private Integer tick_length;
+	@Alias("tick-length")
+    private Integer tick_length;
 	private YAxisLabels labels;
 
 	public YAxis setTickLength(Integer tick_length) {
