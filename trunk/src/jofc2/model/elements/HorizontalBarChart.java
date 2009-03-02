@@ -18,6 +18,7 @@ package jofc2.model.elements;
 
 import java.util.Arrays;
 import java.util.List;
+import java.io.Serializable;
 
 import jofc2.model.metadata.Converter;
 import jofc2.util.HorizontalBarChartBarConverter;
@@ -77,7 +78,7 @@ public class HorizontalBarChart extends Element {
     }
     
     @Converter(HorizontalBarChartBarConverter.class)
-    public static class Bar {
+    public static class Bar implements Serializable {
         private final Number right;
         private Number left;
         
