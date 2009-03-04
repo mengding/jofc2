@@ -48,7 +48,7 @@ public class LineChart extends Element {
 	/**
 	 * Tells the LineChart to Use the right YAxis
 	 */
-	public void setRightYAxis(){
+	public void setRightYAxis() {
 		setYAxis("right");
 	}
 
@@ -136,6 +136,8 @@ public class LineChart extends Element {
 		private Integer dotSize;
 		private Number value;
 		private String colour;
+		@Alias("tip")
+		private String tooltip;
 
 		public Dot(Number value) {
 			this(value, null, null, null);
@@ -186,6 +188,14 @@ public class LineChart extends Element {
 		public Dot setColour(String colour) {
 			this.colour = colour;
 			return this;
+		}
+
+		public String getTooltip() {
+			return tooltip;
+		}
+
+		public void setTooltip(String tooltip) {
+			this.tooltip = tooltip;
 		}
 	}
 

@@ -12,106 +12,105 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-*/
-
+ */
 package jofc2.model.elements;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import java.io.Serializable;
 
 import jofc2.model.metadata.Converter;
 import jofc2.util.HorizontalBarChartBarConverter;
 
-
-
 public class HorizontalBarChart extends Element {
-    /**
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3320580794787784639L;
 	private String colour;
-    
-    public HorizontalBarChart() {
-        super("hbar");
-    }
-    
-    public String getColour() {
-        return colour;
-    }
-    
-    public HorizontalBarChart setColour(String colour) {
-        this.colour = colour;
-        return this;
-    }
-    
-    public HorizontalBarChart addBars(Bar... bars) {
-        getValues().addAll(Arrays.asList(bars));
-        return this;
-    }
-    
-    public HorizontalBarChart addBars(List<Bar> bars) {
-        getValues().addAll(bars);
-        return this;
-    }
-        
-    public HorizontalBarChart addValues(Number... rightValues) {
-        Bar[] values = new Bar[rightValues.length];
-        for (int i = 0; i < rightValues.length; ++i) {
-            values[i] = new Bar(rightValues[i]);
-        }
-        return addBars(values);
-    }
-    
-    public HorizontalBarChart addValues(List<Number> rightValues) {
-   	 for (Number number : rightValues){
-   		 if (number!=null){
-   		 this.addBars(new Bar(number));
-   		 }
-   	 }
 
-        return this;
-    }
-    
-    public HorizontalBarChart addBar(Number left, Number right) {
-        return addBars(new Bar(left, right));
-    }
-    
-    @Converter(HorizontalBarChartBarConverter.class)
-    public static class Bar implements Serializable {
-        private final Number right;
-        private Number left;
-        private String tooltip;
-        
-        public Bar(Number right) {
-            this(null, right);
-        }
-        
-        public Bar(Number left, Number right) {
-            if (right == null) throw new NullPointerException("Field is mandatory.");
-            this.right = right;
-            setLeft(left);
-        }
-        
-        public Number getRight() {
-            return right;
-        }
-        
-        public Number getLeft() {
-            return left;
-        }
-        
-        public Bar setLeft(Number left) {
-            this.left = left;
-            return this;
-        }
+	public HorizontalBarChart() {
+		super("hbar");
+	}
 
-        public String getTooltip() {
-            return tooltip;
-        }
+	public String getColour() {
+		return colour;
+	}
 
-        public void setTooltip(String tooltip) {
-            this.tooltip = tooltip;
-        }
-    }
+	public HorizontalBarChart setColour(String colour) {
+		this.colour = colour;
+		return this;
+	}
+
+	public HorizontalBarChart addBars(Bar... bars) {
+		getValues().addAll(Arrays.asList(bars));
+		return this;
+	}
+
+	public HorizontalBarChart addBars(List<Bar> bars) {
+		getValues().addAll(bars);
+		return this;
+	}
+
+	public HorizontalBarChart addValues(Number... rightValues) {
+		Bar[] values = new Bar[rightValues.length];
+		for (int i = 0; i < rightValues.length; ++i) {
+			values[i] = new Bar(rightValues[i]);
+		}
+		return addBars(values);
+	}
+
+	public HorizontalBarChart addValues(List<Number> rightValues) {
+		for (Number number : rightValues) {
+			if (number != null) {
+				this.addBars(new Bar(number));
+			}
+		}
+		return this;
+	}
+
+	public HorizontalBarChart addBar(Number left, Number right) {
+		return addBars(new Bar(left, right));
+	}
+
+	@Converter(HorizontalBarChartBarConverter.class)
+	public static class Bar implements Serializable {
+
+		private static final long serialVersionUID = 3148075877503179797L;
+		private final Number right;
+		private Number left;
+		private String tooltip;
+
+		public Bar(Number right) {
+			this(null, right);
+		}
+
+		public Bar(Number left, Number right) {
+			if (right == null) throw new NullPointerException("Field is mandatory.");
+			this.right = right;
+			setLeft(left);
+		}
+
+		public Number getRight() {
+			return right;
+		}
+
+		public Number getLeft() {
+			return left;
+		}
+
+		public Bar setLeft(Number left) {
+			this.left = left;
+			return this;
+		}
+
+		public String getTooltip() {
+			return tooltip;
+		}
+
+		public void setTooltip(String tooltip) {
+			this.tooltip = tooltip;
+		}
+	}
 }

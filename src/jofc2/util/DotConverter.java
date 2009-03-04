@@ -28,6 +28,7 @@ public class DotConverter extends ConverterBase<Dot> {
 		writeNode(writer, "colour", o.getColour(), true);
 		writeNode(writer, "dot-size", o.getDotSize(), true);
 		writeNode(writer, "halo-size", o.getHaloSize(), true);
+		writeNode(writer, "tip", o.getTooltip(), true);
 	}
 
 	@SuppressWarnings("unchecked")
