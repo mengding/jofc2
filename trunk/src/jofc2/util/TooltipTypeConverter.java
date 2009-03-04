@@ -13,16 +13,15 @@ GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
-
 package jofc2.util;
 
 import jofc2.model.elements.Tooltip.Type;
 
 import com.thoughtworks.xstream.converters.SingleValueConverter;
 
-public class TooltipTypeConverter implements SingleValueConverter
-{
-    public Object fromString(String s) {
+public class TooltipTypeConverter implements SingleValueConverter {
+
+	public Object fromString(String s) {
 		return Type.valueOf(s.toUpperCase());
 	}
 
@@ -30,8 +29,8 @@ public class TooltipTypeConverter implements SingleValueConverter
 		return o.toString();
 	}
 
-    public boolean canConvert(Class arg0)
-    {
-        return Type.class.isAssignableFrom(arg0);
-    }
+	@SuppressWarnings("unchecked")
+	public boolean canConvert(Class arg0) {
+		return Type.class.isAssignableFrom(arg0);
+	}
 }

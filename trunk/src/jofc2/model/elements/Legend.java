@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Legend implements Serializable {
 
+	private static final long serialVersionUID = 2220096987890659431L;
 	private String position;
 	private boolean visible;
 	private String bg_colour;
