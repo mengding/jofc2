@@ -17,6 +17,7 @@ package jofc2.model.elements;
 
 import java.util.Arrays;
 import java.util.List;
+import java.io.Serializable;
 
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
@@ -128,7 +129,7 @@ public class LineChart extends Element {
 	}
 
 	@Converter(DotConverter.class)
-	public static class Dot {
+	public static class Dot implements Serializable {
 
 		@Alias("halo-size")
 		private Integer haloSize;
