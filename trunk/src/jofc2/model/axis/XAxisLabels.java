@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import jofc2.OFC;
-
+import jofc2.model.metadata.Alias;
 
 public class XAxisLabels extends Label {
     /**
@@ -29,6 +29,8 @@ public class XAxisLabels extends Label {
 	 */
 	private static final long serialVersionUID = -6134375829177947590L;
 	private Integer steps;
+    @Alias("visible-steps")
+    private Integer visibleSteps;
     private List<Object> labels;
     
     public XAxisLabels() {
@@ -76,5 +78,13 @@ public class XAxisLabels extends Label {
     
     private synchronized void checkLabels() {
         if (labels == null) labels = new ArrayList<Object>();
+    }
+
+    public Integer getVisibleSteps() {
+        return visibleSteps;
+    }
+
+    public void setVisibleSteps(Integer visibleSteps) {
+        this.visibleSteps = visibleSteps;
     }
 }
