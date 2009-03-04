@@ -81,6 +81,7 @@ public class HorizontalBarChart extends Element {
     public static class Bar implements Serializable {
         private final Number right;
         private Number left;
+        private String tooltip;
         
         public Bar(Number right) {
             this(null, right);
@@ -103,6 +104,14 @@ public class HorizontalBarChart extends Element {
         public Bar setLeft(Number left) {
             this.left = left;
             return this;
+        }
+
+        public String getTooltip() {
+            return tooltip;
+        }
+
+        public void setTooltip(String tooltip) {
+            this.tooltip = tooltip;
         }
     }
 }
