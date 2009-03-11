@@ -18,53 +18,64 @@ package jofc2.model.axis;
 import jofc2.model.metadata.Alias;
 
 import java.util.List;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 public class YAxis extends Axis {
 
-	private static final long serialVersionUID = 7471159737831995334L;
-	@Alias("tick-length")
+    private static final long serialVersionUID = 7471159737831995334L;
+    @Alias("tick-length")
     private Integer tick_length;
-	private YAxisLabels labels;
+    @Alias("labels")
+    private YAxisLabels yAxisLabels;
+    private List<String> labels;
 
-	public YAxis setTickLength(Integer tick_length) {
-		this.tick_length = tick_length;
-		return this;
-	}
+    public YAxis setTickLength(Integer tick_length) {
+        this.tick_length = tick_length;
+        return this;
+    }
 
-	public Integer getTickLength() {
-		return tick_length;
-	}
+    public Integer getTickLength() {
+        return tick_length;
+    }
 
-	public YAxis setLabels(String... labels) {
-		this.labels = new YAxisLabels(labels);
-		return this;
-	}
+    public YAxis setYAxisLabels(YAxisLabels labels) {
+        this.yAxisLabels = labels;
+        return this;
+    }
 
-	public YAxis setLabels(List<String> labels) {
-		this.labels = new YAxisLabels(labels);
-		return this;
-	}
+    public YAxis setLabels(String... labels) {
+        this.labels = new ArrayList<String>();
+        this.labels.addAll(Arrays.asList(labels));
+        return this;
+    }
 
-	public YAxis addLabels(String... labels) {
-		if (this.labels == null) {
-			this.labels = new YAxisLabels();
-		}
-		this.labels.addLabels(labels);
-		return this;
-	}
+    public YAxis setLabels(List<String> labels) {
+        this.labels = labels;
+        return this;
+    }
 
-	public YAxis addLabels(List<Label> labels) {
-		if (this.labels == null) {
-			this.labels = new YAxisLabels();
-		}
-		this.labels.addLabels(labels);
-		return this;
-	}
+    public YAxis addLabels(Label... labels) {
+        if (this.yAxisLabels == null) {
+            this.yAxisLabels = new YAxisLabels();
+        }
+        this.yAxisLabels.addLabels(labels);
+        return this;
+    }
 
-	public YAxisLabels getLabels() {
-		if (this.labels == null) {
-			this.labels = new YAxisLabels();
-		}
-		return this.labels;
-	}
+    public YAxis addLabels(List<Label> labels) {
+        if (this.yAxisLabels == null) {
+            this.yAxisLabels = new YAxisLabels();
+        }
+        this.yAxisLabels.addLabels(labels);
+        return this;
+    }
+
+    public YAxisLabels getYAxisLabels() {
+        return this.yAxisLabels;
+    }
+
+    public List<String> getLabels() {
+        return labels;
+    }
 }
