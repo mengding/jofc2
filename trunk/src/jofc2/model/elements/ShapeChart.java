@@ -15,6 +15,7 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class ShapeChart extends Element {
 	}
 
 	@Converter(ShapePointConverter.class)
-	public static class Point {
+	public static class Point implements Serializable {
 
 		private final Number x;
 		private final Number y;
