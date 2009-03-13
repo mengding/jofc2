@@ -15,6 +15,7 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class BarChart extends Element {
 	}
 
 	@Converter(BarConverter.class)
-	public static class Bar {
+	public static class Bar implements Serializable {
 
 		private Number top;
 		private Number bottom;

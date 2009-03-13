@@ -15,6 +15,7 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -69,7 +70,7 @@ public class ScatterChart extends Element {
 	}
 
 	@Converter(ScatterChartPointConverter.class)
-	public static class Point {
+	public static class Point implements Serializable {
 
 		private Number x;
 		private Number y;

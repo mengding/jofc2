@@ -16,6 +16,7 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 package jofc2.model.elements;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -144,7 +145,7 @@ public class StackedBarChart extends Element {
      * Representation of a stack in the chart.  This class allows
      * you to add numbers or complex values with custom data.
      */
-    public static class Stack {
+    public static class Stack implements Serializable {
         private transient List<Object> values;
         
         public Stack() {
@@ -190,7 +191,7 @@ public class StackedBarChart extends Element {
      * Representation of data in the stacked bar chart. 
      */
     @Converter(StackValueConverter.class)
-    public static class StackValue {
+    public static class StackValue implements Serializable {
         private Number val;
         private String colour;
         
@@ -226,7 +227,7 @@ public class StackedBarChart extends Element {
      * Representation of a key in the stacked bar chart.
      */
     @Converter(StackKeyConverter.class)
-    public static class Key {
+    public static class Key implements Serializable {
         private String colour;
         private String text;
         @Alias(value = "font-size")
