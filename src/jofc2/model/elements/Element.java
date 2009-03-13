@@ -45,6 +45,9 @@ public abstract class Element implements Serializable {
 	private Boolean gradientFill;
 	@Alias("key-on-click")
 	private String key_on_click;
+	@Alias("on-click")
+	private String onClick;
+	
 	private List<Object> values = new ArrayList<Object>();
 
 	protected Element(String type) {
@@ -213,5 +216,19 @@ public abstract class Element implements Serializable {
 	 */
 	public void setToggleVisibility(){
 		this.key_on_click = ON_CLICK_TOGGLE_VISIBILITY;
+	}
+	
+	/**
+	 * @return the javascript function to call or the url to open on click.
+	 */
+	public String getOnClick() {
+		return onClick;
+	}
+	
+	/**
+	 * @param onClick the javascript function to call or the url to open on click.
+	 */
+	public void setOnClick(String onClick) {
+		this.onClick = onClick;
 	}
 }
