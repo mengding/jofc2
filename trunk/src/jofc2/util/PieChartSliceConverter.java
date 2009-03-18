@@ -35,5 +35,6 @@ public class PieChartSliceConverter extends ConverterBase<Slice> {
 		writeNode(writer, "tip", o.getTip(), true);
 		writeNode(writer, "highlight", o.getHighlight(), false);
 		writeNode(writer, "text", o.getText(), true);
+        writeNode(writer, "on-click", o.getOnClick(), true);
 	}
 }

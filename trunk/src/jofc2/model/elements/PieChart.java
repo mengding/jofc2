@@ -136,8 +136,9 @@ public class PieChart extends Element {
 		private String highlight="alpha";
 		private String text;
 		private final Number value;
+        private String onClick;
 
-		public Slice(Number value, String label) {
+        public Slice(Number value, String label) {
 			this.label = label;
 			this.value = value;
 		}
@@ -198,7 +199,15 @@ public class PieChart extends Element {
 		public void setText(String text) {
 			this.text = text;
 		}
-	}
+
+        public String getOnClick() {
+            return onClick;
+        }
+
+        public void setOnClick(String onClick) {
+            this.onClick = onClick;
+        }
+    }
 
 	private synchronized void checkColours() {
 		if (colours == null) colours = new ArrayList<String>();
