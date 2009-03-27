@@ -51,6 +51,7 @@ public class Chart implements Serializable {
 	private Collection<Element> elements = new ArrayList<Element>();
 	private Legend legend;
     private Tooltip tooltip;
+    private String inner_bg_colour;
 
     public XAxis getXAxis() {
 		return x_axis;
@@ -317,5 +318,13 @@ public class Chart implements Serializable {
 	
 	public void setLegend(Legend legend) {
 		this.legend = legend;
+	}
+	
+	public void setInnerBackgroundColour(String inner_bg_colour) {
+		this.inner_bg_colour = inner_bg_colour;
+	}
+
+	public String getInnerBackgroundColour() {
+		return inner_bg_colour;
 	}
 }
