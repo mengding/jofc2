@@ -32,9 +32,9 @@ import jofc2.model.axis.YAxis;
 import jofc2.model.elements.*;
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
+import jofc2.org.json.JSONException;
+import jofc2.org.json.JSONObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.ConverterMatcher;
