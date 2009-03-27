@@ -141,6 +141,7 @@ public class PieChart extends Element {
         public Slice(Number value, String label) {
 			this.label = label;
 			this.value = value;
+			this.text = label;
 		}
 
 		/**
