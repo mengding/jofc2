@@ -1,4 +1,4 @@
-package org.json;
+package jofc2.org.json;
 
 import java.io.StringWriter;
 import java.util.Collection;

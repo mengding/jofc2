@@ -1,4 +1,4 @@
-package org.json;
+package jofc2.org.json;
 
 /**
  * The JSONException is thrown by the JSON.org classes then things are amiss.
