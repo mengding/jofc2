@@ -21,20 +21,18 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import jofc2.model.AnimationPie;
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.PieChartSliceConverter;
 
 public class PieChart extends Element {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8853434988212173862L;
 	@Alias("start-angle")
 	private Integer startAngle;
 	private Collection<String> colours;
-	private Boolean animate;
+	private List<Object> animate = new ArrayList<Object>();
 	private Integer border;
 	private Integer radius;
 	@Alias("no-labels")
@@ -42,15 +40,6 @@ public class PieChart extends Element {
 
 	public PieChart() {
 		super("pie");
-	}
-
-	public PieChart setAnimate(boolean animate) {
-		this.animate = animate;
-		return this;
-	}
-
-	public Boolean getAnimate() {
-		return animate;
 	}
 
 	public Integer getStartAngle() {
@@ -102,7 +91,7 @@ public class PieChart extends Element {
 
 	public PieChart addValues(List<Number> values) {
 		for (Number number : values) {
-			// Ignore null values cause they dont make sense in pie Charts
+			// Ignore null values cause they don't make sense in pie Charts
 			if (number != null) {
 				getValues().add(number);
 			}
@@ -124,6 +113,25 @@ public class PieChart extends Element {
 		return this;
 	}
 
+	/**
+	 * Add a default fade animation 
+	 * @param _animate
+	 */
+	public void setAnimate(boolean _animate) {
+		if (_animate && getAnimate().size() == 0) {
+			getAnimate().add(new AnimationPie.Fade());
+		}
+	}
+
+	public PieChart addAnimations(AnimationPie... animations) {
+		return addAnimations(Arrays.asList(animations));
+	}
+
+	public PieChart addAnimations(List<AnimationPie> animations) {
+		getAnimate().addAll(animations);
+		return this;
+	}
+
 	@Converter(PieChartSliceConverter.class)
 	public static class Slice implements Serializable {
 
@@ -133,12 +141,12 @@ public class PieChart extends Element {
 		private static final long serialVersionUID = 6961394996186973937L;
 		private final String label;
 		private String tip;
-		private String highlight="alpha";
+		private String highlight = "alpha";
 		private String text;
 		private final Number value;
-        private String onClick;
+		private String onClick;
 
-        public Slice(Number value, String label) {
+		public Slice(Number value, String label) {
 			this.label = label;
 			this.value = value;
 			this.text = label;
@@ -167,13 +175,13 @@ public class PieChart extends Element {
 			return label;
 		}
 
-
 		public String getText() {
 			return text;
 		}
 
 		/**
-		 * @return the tip Text for the slice. If Tip isset it overrides the label
+		 * @return the tip Text for the slice. If Tip isset it overrides the
+		 *         label
 		 */
 		public String getTip() {
 			return tip;
@@ -183,35 +191,36 @@ public class PieChart extends Element {
 		 * Sets the tip Text for the slice. If Tip isset it overrides the label
 		 * 
 		 * @param tip
-		 *           the Text to set
+		 *            the Text to set
 		 */
 		public void setTip(String tip) {
 			this.tip = tip;
 		}
 
-		
 		public String getHighlight() {
 			return highlight;
 		}
 
 		/**
-		 * This value is the Representation of the Slice in the legend (if it is rendered)
+		 * This value is the Representation of the Slice in the legend (if it is
+		 * rendered)
 		 */
 		public void setText(String text) {
 			this.text = text;
 		}
 
-        public String getOnClick() {
-            return onClick;
-        }
+		public String getOnClick() {
+			return onClick;
+		}
 
-        public void setOnClick(String onClick) {
-            this.onClick = onClick;
-        }
-    }
+		public void setOnClick(String onClick) {
+			this.onClick = onClick;
+		}
+	}
 
 	private synchronized void checkColours() {
-		if (colours == null) colours = new ArrayList<String>();
+		if (colours == null)
+			colours = new ArrayList<String>();
 	}
 
 	public Boolean getNoLabels() {
@@ -227,12 +236,16 @@ public class PieChart extends Element {
 	}
 
 	/**
-	 * "radius" allows you to force the radius of the pis to a certain size. If
+	 * "radius" allows you to force the radius of the pie to a certain size. If
 	 * this is left out of the JSON then the pie will resize itself so that it
 	 * and all of its labels fit in the display area (as best as it can).
 	 * 
 	 */
 	public void setRadius(Integer radius) {
 		this.radius = radius;
+	}
+
+	private List<Object> getAnimate() {
+		return animate;
 	}
 }
