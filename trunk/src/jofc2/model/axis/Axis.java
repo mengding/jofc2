@@ -73,7 +73,7 @@ public abstract class Axis implements Serializable{
     }
     public Axis setOffset(Boolean offset) {
         if (offset == null) this.offset = null;
-        this.offset = offset ? 1 : 0;
+        else this.offset = offset ? 1 : 0;
         return this;
     }
     public Integer get3D() {
@@ -105,10 +105,10 @@ public abstract class Axis implements Serializable{
         this.max = max.doubleValue();
         return this;
     }
-    public Axis setRange(Number min, Number max, Number step) {
+    public Axis setRange(Number min, Number max, Number steps) {
         setMin(min.doubleValue());
         setMax(max.doubleValue());
-        setSteps(step.doubleValue());
+        setSteps(steps == null ? null : steps.doubleValue());
         return this;
     }
     
