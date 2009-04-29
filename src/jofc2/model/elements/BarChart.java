@@ -49,8 +49,8 @@ public class BarChart extends Element {
 
 	public BarChart addValues(List<Number> values) {
 		for (Number number : values) {
-			if (number!=null){
-			this.addBars(new Bar(number));
+			if (number != null) {
+				this.addBars(new Bar(number));
 			}
 		}
 		return this;
@@ -76,7 +76,9 @@ public class BarChart extends Element {
 	}
 
 	public static enum Style {
-		NORMAL("bar"), THREED("bar_3d"), GLASS("bar_glass");
+		NORMAL("bar"), THREED("bar_3d"), GLASS("bar_glass"), CYLINDER(
+				"bar_cylinder"), CYLINDER_OUT_LINE("bar_cylinder_outline"), ROUND_GLASS(
+				"bar_round_glass"), ROUND("bar_round"), DOME("bar_dome");
 
 		private String style;
 
