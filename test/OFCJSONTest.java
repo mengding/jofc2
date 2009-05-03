@@ -6,19 +6,20 @@ import jofc2.model.elements.BarChart;
 import jofc2.model.elements.LineChart;
 import jofc2.model.elements.BarChart.Bar;
 import jofc2.model.elements.LineChart.Dot;
-import junit.framework.TestCase;
+import jofc2.model.elements.LineChart.Style.Star;
 
 
 
-public class OFCJSONTest extends TestCase {
+public class OFCJSONTest  {
 
-	public void testPrettyPrint() {
+	public OFCJSONTest() {
 		Chart chart = new Chart();
 		chart.setTitle(new Text("Testline"));
 		chart.setBackgroundColour("#FFFFFF");
-		LineChart lc = new LineChart(LineChart.Style.DOT);
+		LineChart lc = new LineChart();
 		lc.setText("Sanitärbranch");
-		LineChart lc2 = new LineChart(LineChart.Style.DOT);
+		lc.setDotStyle(new Star("#111111",45,0,90,true));
+		LineChart lc2 = new LineChart();
 		lc2.setColour("#FF0000");
 		lc2.setText("Werkzeugbranch");
 		BarChart bc3 = new BarChart(BarChart.Style.NORMAL);
@@ -49,5 +50,8 @@ public class OFCJSONTest extends TestCase {
 		chart.setDecimalSeparatorIsComma(true);
 		chart.computeYAxisRange(15);
 		System.err.println(chart.toDebugString());
+	}
+	public static void main (String string){
+		new OFCJSONTest();
 	}
 }

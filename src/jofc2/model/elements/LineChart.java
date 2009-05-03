@@ -22,6 +22,7 @@ import java.io.Serializable;
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.DotConverter;
+import jofc2.util.TypeDotConverter;
 
 public class LineChart extends Element {
 
@@ -37,6 +38,8 @@ public class LineChart extends Element {
 	private Integer haloSize;
 	private String colour;
 	private String axis;
+	@Alias("dot-style")
+	private Style dotStyle;
 
 	public String getYaxis() {
 		return axis;
@@ -54,11 +57,7 @@ public class LineChart extends Element {
 	}
 
 	public LineChart() {
-		this(Style.NORMAL);
-	}
-
-	public LineChart(Style style) {
-		this(style.getStyle());
+		this("line");
 	}
 
 	protected LineChart(String type) {
@@ -98,8 +97,10 @@ public class LineChart extends Element {
 	}
 
 	public LineChart addValues(List<Number> values) {
-		// We convert all Numbers to Dots except Null Values they are Converted to a Null Element
-		// as Dots with the value null are interpreted as Zero from OFC and null Values themself are interpolated
+		// We convert all Numbers to Dots except Null Values they are Converted
+		// to a Null Element
+		// as Dots with the value null are interpreted as Zero from OFC and null
+		// Values themself are interpolated
 		for (Number number : values) {
 			if (number == null) {
 				getValues().add(new NullElement());
@@ -148,7 +149,8 @@ public class LineChart extends Element {
 			this(value, colour, null, null);
 		}
 
-		public Dot(Number value, String colour, Integer dotSize, Integer haloSize) {
+		public Dot(Number value, String colour, Integer dotSize,
+				Integer haloSize) {
 			setValue(value);
 			setColour(colour);
 			setDotSize(dotSize);
@@ -200,17 +202,156 @@ public class LineChart extends Element {
 		}
 	}
 
-	public static enum Style {
-		NORMAL("line"), DOT("line_dot"), HOLLOW("line_hollow");
+	@Converter(TypeDotConverter.class)
+	public abstract static class Style implements Serializable {
+		private static enum Type {
+			BOW("bow"), DOT("dot"), HALLOW("hollow-dot"), ANCHOR("anchor"), STAR(
+					"star");
 
-		private String style;
+			private String type;
 
-		Style(String style) {
-			this.style = style;
+			Type(String type) {
+				this.type = type;
+			}
+
+			public String getType() {
+				return type;
+			}
 		}
 
-		public String getStyle() {
-			return style;
+		private String type;
+		private Integer rotation = 0;
+		private Boolean hallow = false;
+		@Alias("halo-size")
+		private Integer haloSize;
+		@Alias("dot-size")
+		private Integer dotSize;
+		private String colour;
+		private Integer sides;
+
+		
+		// "dot-style": { "type": "dot", "dot-size": 4, "halo-size": 2 }
+		
+		public static class Hallow extends LineChart.Style implements
+				Serializable {
+			// "dot-style": { "type": "hollow-dot", "dot-size": 5, "halo-size": 0,"colour": "#3D5C56" }
+			public Hallow(String colour, Integer dotSize, Integer haloSize) {
+				setType(Type.HALLOW.getType());
+				setColour(colour);
+				setDotSize(dotSize);
+				setHaloSize(haloSize);
+			}
+		}
+
+		public static class Bow extends LineChart.Style implements
+				Serializable {
+			// "dot-style": { "type": "bow", "dot-size": 6, "halo-size": 0,"colour": "#3D5C56", "rotation": 90
+			public Bow(String colour, Integer dotSize, Integer haloSize, Integer rotation) {
+				setType(Type.BOW.getType());
+				setColour(colour);
+				setDotSize(dotSize);
+				setHaloSize(haloSize);
+				setRotation(rotation);
+			}
+		}
+		
+		public static class Anchor extends LineChart.Style implements
+		Serializable {
+			// "dot-style": { "type": "anchor", "dot-size": 6, "halo-size": 1,"colour": "#3D5C56", "rotation": 90, "sides": 3 }
+			public Anchor(String colour, Integer dotSize, Integer haloSize, Integer rotation, Integer sides) {
+				setType(Type.ANCHOR.getType());
+				setColour(colour);
+				setDotSize(dotSize);
+				setHaloSize(haloSize);
+				setRotation(rotation);
+				setSides(sides);
+			}
+		}
+		
+		public static class Star extends LineChart.Style implements
+		Serializable {
+			// "dot-style": { "type": "star", "dot-size": 6, "halo-size": 2,"colour": "#f00000", "rotation": 180, "hollow": false }
+			public Star(String colour, Integer dotSize, Integer haloSize, Integer rotation, Boolean hallow) {
+				setType(Type.STAR.getType());
+				setColour(colour);
+				setDotSize(dotSize);
+				setHaloSize(haloSize);
+				setRotation(rotation);
+				setHallow(hallow);
+			}
+		}
+		
+
+		public Integer getHaloSize() {
+			return haloSize;
+		}
+
+		public Style setHaloSize(Integer haloSize) {
+			this.haloSize = haloSize;
+			return this;
+		}
+
+		public Integer getDotSize() {
+			return dotSize;
+		}
+
+		public Style setDotSize(Integer dotSize) {
+			this.dotSize = dotSize;
+			return this;
+		}
+
+		public String getColour() {
+			return colour;
+		}
+
+		public Style setColour(String colour) {
+			this.colour = colour;
+			return this;
+		}
+
+		public String getType() {
+			return type;
+		}
+
+		public Style setType(String type) {
+			this.type = type;
+			return this;
+		}
+
+		public Integer getRotation() {
+			return rotation;
+		}
+
+		public Style setRotation(Integer rotation) {
+			this.rotation = rotation;
+			return this;
+		}
+
+		public Boolean getHallow() {
+			return hallow;
+		}
+
+		public Style setHallow(Boolean hallow) {
+			this.hallow = hallow;
+			return this;
+		}
+
+		public Integer getSides() {
+			return sides;
+		}
+
+		public void setSides(Integer sides) {
+			this.sides = sides;
 		}
 	}
+
+	public Style getDotStyle() {
+		return dotStyle;
+	}
+
+	public LineChart setDotStyle(Style dotStyle) {
+		this.dotStyle = dotStyle;
+		return this;
+	}
+
 }
