@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import jofc2.model.AnimationPie;
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.PieChartSliceConverter;
@@ -119,7 +118,7 @@ public class PieChart extends Element {
 	 */
 	public void setAnimate(boolean _animate) {
 		if (_animate && getAnimate().size() == 0) {
-			getAnimate().add(new AnimationPie.Fade());
+			getAnimate().add(new PieChart.AnimationPie.Fade());
 		}
 	}
 
@@ -247,5 +246,47 @@ public class PieChart extends Element {
 
 	private List<Object> getAnimate() {
 		return animate;
+	}
+	
+	
+	public static abstract class AnimationPie {
+
+		private String type;
+		private Integer distance;
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+
+		public Integer getDistance() {
+			return distance;
+		}
+
+		public void setDistance(Integer distance) {
+			this.distance = distance;
+		}
+
+		public static class Fade extends AnimationPie implements Serializable {
+		
+			private static final long serialVersionUID = -3878420396240140754L;
+
+			public Fade() {
+				setType("fade");
+			}
+		}
+
+		public static class Bounce extends AnimationPie implements Serializable {
+
+			private static final long serialVersionUID = -2951410274832180986L;
+
+			public Bounce(Integer distance) {
+				setType("bounce");
+				setDistance(distance);
+			}
+		}
 	}
 }
