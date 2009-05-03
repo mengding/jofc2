@@ -206,7 +206,7 @@ public class LineChart extends Element {
 	public abstract static class Style implements Serializable {
 		private static enum Type {
 			BOW("bow"), DOT("dot"), HALLOW("hollow-dot"), ANCHOR("anchor"), STAR(
-					"star");
+					"star"), SOLID_DOT("solid-dot");
 
 			private String type;
 
@@ -278,6 +278,17 @@ public class LineChart extends Element {
 				setHaloSize(haloSize);
 				setRotation(rotation);
 				setHallow(hallow);
+			}
+		}
+		
+		public static class SolidDot extends LineChart.Style implements
+		Serializable {
+			// "dot-style": { "type": "solid-dot", "dot-size": 3, "halo-size": 1, "colour": "#3D5C56" }
+			public SolidDot(String colour, Integer dotSize, Integer haloSize) {
+				setType(Type.SOLID_DOT.getType());
+				setColour(colour);
+				setDotSize(dotSize);
+				setHaloSize(haloSize);
 			}
 		}
 		
