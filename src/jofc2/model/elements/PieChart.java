@@ -62,14 +62,12 @@ public class PieChart extends Element {
 
 	public PieChart setColours(String... colours) {
 		checkColours();
-		this.colours.clear();
 		this.colours.addAll(Arrays.asList(colours));
 		return this;
 	}
 
 	public PieChart setColours(List<String> colours) {
 		checkColours();
-		this.colours.clear();
 		this.colours.addAll(colours);
 		return this;
 	}

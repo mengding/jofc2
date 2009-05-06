@@ -205,7 +205,7 @@ public class LineChart extends Element {
 	@Converter(TypeDotConverter.class)
 	public abstract static class Style implements Serializable {
 		private static enum Type {
-			BOW("bow"), DOT("dot"), HALLOW("hollow-dot"), ANCHOR("anchor"), STAR(
+			BOW("bow"), DOT("dot"), HALLOW_DOT("hollow-dot"), ANCHOR("anchor"), STAR(
 					"star"), SOLID_DOT("solid-dot");
 
 			private String type;
@@ -232,11 +232,11 @@ public class LineChart extends Element {
 		
 		// "dot-style": { "type": "dot", "dot-size": 4, "halo-size": 2 }
 		
-		public static class Hallow extends LineChart.Style implements
+		public static class HallowDot extends LineChart.Style implements
 				Serializable {
 			// "dot-style": { "type": "hollow-dot", "dot-size": 5, "halo-size": 0,"colour": "#3D5C56" }
-			public Hallow(String colour, Integer dotSize, Integer haloSize) {
-				setType(Type.HALLOW.getType());
+			public HallowDot(String colour, Integer dotSize, Integer haloSize) {
+				setType(Type.HALLOW_DOT.getType());
 				setColour(colour);
 				setDotSize(dotSize);
 				setHaloSize(haloSize);
