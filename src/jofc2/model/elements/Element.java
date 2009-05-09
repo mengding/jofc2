@@ -15,15 +15,14 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import jofc2.model.elements.BarChart.Bar;
 import jofc2.model.elements.LineChart.Dot;
 import jofc2.model.elements.PieChart.Slice;
-
 import jofc2.model.metadata.Alias;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Element implements Serializable {
 
@@ -70,8 +69,10 @@ public abstract class Element implements Serializable {
 	public String getText() {
 		return text;
 	}
+
    /**
-    * The Text is used to represent the Element in the legend. If text is null the element will not appear in the legend
+    * @param text the text is used to represent the Element in the legend. If text is null the element will not appear in the legend
+    * @return the current element for chaining
     */
 	public Element setText(String text) {
 		this.text = text;
@@ -109,9 +110,8 @@ public abstract class Element implements Serializable {
 	}
 
 	/**
-	 * Returns the maximum value (double) of the given Element Supports only the
-	 * Elements Dot, Bar, Slice and Horizontal Bar
-	 */
+     * @return the maximum value (double) of the given Element. Supports only the Elements Dot, Bar, Slice and Horizontal Bar
+     */
 	public double getMaxValue() {
 		double max = 0.0;
 		for (Object obj : getValues()) {
@@ -149,8 +149,7 @@ public abstract class Element implements Serializable {
 	}
 
     /**
-     * Returns the minimum value (double) of the given Element Supports only the
-     * Elements Dot, Bar, Slice and Horizontal Bar
+     * @return the minimum value (double) of the given Element. Supports only the Elements Dot, Bar, Slice and Horizontal Bar
      */
     public double getMinValue() {
         Double min = null;
@@ -204,9 +203,10 @@ public abstract class Element implements Serializable {
 	}
 
 	/**
-	 * Set the Key on Click Funktion. e.g. "toggle-visibility". For a Link just pass the URL
-	 * toggle-visibility will enable you to click on your legend an switch on and off individual elements
-	 */
+     * @param key_on_click the Key on Click function. e.g. <code>"toggle-visibility"</code>. For a Link just pass the URL
+     *
+     * <code>"toggle-visibility"</code> will enable switching this elements ON and OFF by clicking its name in the legend 
+     */
 	public void setKey_on_click(String key_on_click) {
 		this.key_on_click = key_on_click;
 	}

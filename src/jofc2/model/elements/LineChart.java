@@ -15,23 +15,21 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
-import java.util.Arrays;
-import java.util.List;
-import java.io.Serializable;
-
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.DotConverter;
 import jofc2.util.TypeDotConverter;
 
-public class LineChart extends Element {
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
-	/**
-	 * 
-	 */
+public class LineChart extends AnimatedElement {
+
 	private static final long serialVersionUID = 8807130855547088579L;
 	private static transient final Integer DEFAULT_FONTSIZE = 10;
-	private Integer width;
+
+    private Integer width;
 	@Alias("dot-size")
 	private Integer dotSize;
 	@Alias("halo-size")
@@ -116,8 +114,14 @@ public class LineChart extends Element {
 	}
 
 	public LineChart addDots(List<Dot> dots) {
-		getValues().addAll(dots);
-		return this;
+        for (Dot dot : dots) {
+			if (dot == null || dot.getValue() == null) {
+				getValues().add(new NullElement());
+			} else {
+				getValues().add(dot);
+			}
+		}
+        return this;
 	}
 
 	public Integer getHaloSize() {
@@ -149,8 +153,7 @@ public class LineChart extends Element {
 			this(value, colour, null, null);
 		}
 
-		public Dot(Number value, String colour, Integer dotSize,
-				Integer haloSize) {
+		public Dot(Number value, String colour, Integer dotSize, Integer haloSize) {
 			setValue(value);
 			setColour(colour);
 			setDotSize(dotSize);
@@ -202,11 +205,15 @@ public class LineChart extends Element {
 		}
 	}
 
-	@Converter(TypeDotConverter.class)
+    @Converter(TypeDotConverter.class)
 	public abstract static class Style implements Serializable {
 		private static enum Type {
-			BOW("bow"), DOT("dot"), HALLOW_DOT("hollow-dot"), ANCHOR("anchor"), STAR(
-					"star"), SOLID_DOT("solid-dot");
+			BOW("bow"),
+            DOT("dot"),
+            HALLOW_DOT("hollow-dot"),
+            ANCHOR("anchor"),
+            STAR("star"),
+            SOLID_DOT("solid-dot");
 
 			private String type;
 
@@ -230,21 +237,28 @@ public class LineChart extends Element {
 		private Integer sides;
 
 		
-		// "dot-style": { "type": "dot", "dot-size": 4, "halo-size": 2 }
-		
-		public static class HallowDot extends LineChart.Style implements
-				Serializable {
+        public static class Dot extends LineChart.Style {
+			// "dot-style": { "type": "dot", "dot-size": 3, "halo-size": 1, "colour": "#3D5C56" }
+			public Dot(String colour, Integer dotSize, Integer haloSize) {
+                super();
+                setType(Type.DOT.getType());
+				setColour(colour);
+				setDotSize(dotSize);
+				setHaloSize(haloSize);
+            }
+		}
+
+        public static final class HallowDot extends LineChart.Style {
 			// "dot-style": { "type": "hollow-dot", "dot-size": 5, "halo-size": 0,"colour": "#3D5C56" }
 			public HallowDot(String colour, Integer dotSize, Integer haloSize) {
 				setType(Type.HALLOW_DOT.getType());
 				setColour(colour);
 				setDotSize(dotSize);
 				setHaloSize(haloSize);
-			}
+            }
 		}
 
-		public static class Bow extends LineChart.Style implements
-				Serializable {
+        public static class Bow extends LineChart.Style {
 			// "dot-style": { "type": "bow", "dot-size": 6, "halo-size": 0,"colour": "#3D5C56", "rotation": 90
 			public Bow(String colour, Integer dotSize, Integer haloSize, Integer rotation) {
 				setType(Type.BOW.getType());
@@ -254,9 +268,8 @@ public class LineChart extends Element {
 				setRotation(rotation);
 			}
 		}
-		
-		public static class Anchor extends LineChart.Style implements
-		Serializable {
+
+        public static class Anchor extends LineChart.Style {
 			// "dot-style": { "type": "anchor", "dot-size": 6, "halo-size": 1,"colour": "#3D5C56", "rotation": 90, "sides": 3 }
 			public Anchor(String colour, Integer dotSize, Integer haloSize, Integer rotation, Integer sides) {
 				setType(Type.ANCHOR.getType());
@@ -267,9 +280,8 @@ public class LineChart extends Element {
 				setSides(sides);
 			}
 		}
-		
-		public static class Star extends LineChart.Style implements
-		Serializable {
+
+        public static class Star extends LineChart.Style {
 			// "dot-style": { "type": "star", "dot-size": 6, "halo-size": 2,"colour": "#f00000", "rotation": 180, "hollow": false }
 			public Star(String colour, Integer dotSize, Integer haloSize, Integer rotation, Boolean hallow) {
 				setType(Type.STAR.getType());
@@ -280,9 +292,8 @@ public class LineChart extends Element {
 				setHallow(hallow);
 			}
 		}
-		
-		public static class SolidDot extends LineChart.Style implements
-		Serializable {
+
+        public static class SolidDot extends LineChart.Style {
 			// "dot-style": { "type": "solid-dot", "dot-size": 3, "halo-size": 1, "colour": "#3D5C56" }
 			public SolidDot(String colour, Integer dotSize, Integer haloSize) {
 				setType(Type.SOLID_DOT.getType());
@@ -356,7 +367,7 @@ public class LineChart extends Element {
 		}
 	}
 
-	public Style getDotStyle() {
+    public Style getDotStyle() {
 		return dotStyle;
 	}
 

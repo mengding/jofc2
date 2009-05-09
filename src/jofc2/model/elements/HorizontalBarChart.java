@@ -15,12 +15,12 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
+import jofc2.model.metadata.Converter;
+import jofc2.util.HorizontalBarChartBarConverter;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-
-import jofc2.model.metadata.Converter;
-import jofc2.util.HorizontalBarChartBarConverter;
 
 public class HorizontalBarChart extends Element {
 
@@ -54,17 +54,15 @@ public class HorizontalBarChart extends Element {
 	}
 
 	public HorizontalBarChart addValues(Number... rightValues) {
-		Bar[] values = new Bar[rightValues.length];
-		for (int i = 0; i < rightValues.length; ++i) {
-			values[i] = new Bar(rightValues[i]);
-		}
-		return addBars(values);
+	    return addValues(Arrays.asList(rightValues));
 	}
 
 	public HorizontalBarChart addValues(List<Number> rightValues) {
 		for (Number number : rightValues) {
 			if (number != null) {
-				this.addBars(new Bar(number));
+				this.getValues().add(new Bar(number));
+			} else {
+			    this.getValues().add(new NullElement());
 			}
 		}
 		return this;

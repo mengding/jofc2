@@ -15,20 +15,17 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.BarConverter;
 
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
+
 public class BarChart extends Element {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6695611795831460343L;
+    private static final long serialVersionUID = 6695611795831460343L;
 	private String colour;
 
 	public BarChart() {
@@ -50,7 +47,9 @@ public class BarChart extends Element {
 	public BarChart addValues(List<Number> values) {
 		for (Number number : values) {
 			if (number != null) {
-				this.addBars(new Bar(number));
+				this.getValues().add(new Bar(number));
+			} else {
+			    this.getValues().add(new NullElement());
 			}
 		}
 		return this;
@@ -76,9 +75,14 @@ public class BarChart extends Element {
 	}
 
 	public static enum Style {
-		NORMAL("bar"), THREED("bar_3d"), GLASS("bar_glass"), CYLINDER(
-				"bar_cylinder"), CYLINDER_OUT_LINE("bar_cylinder_outline"), ROUND_GLASS(
-				"bar_round_glass"), ROUND("bar_round"), DOME("bar_dome");
+		NORMAL("bar"),
+        THREED("bar_3d"),
+        GLASS("bar_glass"),
+        CYLINDER("bar_cylinder"),
+        CYLINDER_OUT_LINE("bar_cylinder_outline"),
+        ROUND_GLASS("bar_round_glass"),
+        ROUND("bar_round"),
+        DOME("bar_dome");
 
 		private String style;
 

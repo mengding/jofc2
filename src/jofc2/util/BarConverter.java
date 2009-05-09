@@ -30,7 +30,8 @@ public class BarConverter extends ConverterBase<BarChart.Bar> {
 		writeNode(writer, "bottom", b.getBottom(), true);
 		writeNode(writer, "colour", b.getColour(), true);
 		writeNode(writer, "tip", b.getTooltip(), true);
-		if (b instanceof FilledBarChart.Bar) {
+
+        if (b instanceof FilledBarChart.Bar) {
 			writeNode(writer, "outline-colour", ((FilledBarChart.Bar) b).getOutlineColour(), true);
 		}
 		if (b instanceof SketchBarChart.Bar) {
@@ -38,7 +39,6 @@ public class BarConverter extends ConverterBase<BarChart.Bar> {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public boolean canConvert(Class clazz) {
 		return BarChart.Bar.class.isAssignableFrom(clazz);
 	}
