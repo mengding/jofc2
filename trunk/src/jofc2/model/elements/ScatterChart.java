@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
-import jofc2.util.ScatterChartPointConverter;
+import jofc2.util.OnShowConverter;
 
 public class ScatterChart extends Element {
 
@@ -69,7 +69,7 @@ public class ScatterChart extends Element {
 		this.dotSize = dotSize;
 	}
 
-	@Converter(ScatterChartPointConverter.class)
+	@Converter(OnShowConverter.class)
 	public static class Point implements Serializable {
 
 		private Number x;

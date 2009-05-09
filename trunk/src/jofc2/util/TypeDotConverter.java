@@ -15,15 +15,14 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.util;
 
-import jofc2.model.elements.LineChart.Style;
-
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.path.PathTrackingWriter;
+import jofc2.model.elements.LineChart;
 
-public class TypeDotConverter extends ConverterBase<Style> {
+public class TypeDotConverter extends ConverterBase<LineChart.Style> {
 
 	@Override
-	public void convert(Style o, PathTrackingWriter writer, MarshallingContext mc) {
+	public void convert(LineChart.Style o, PathTrackingWriter writer, MarshallingContext mc) {
 		writeNode(writer, "type", o.getType(), false);
 		writeNode(writer, "colour", o.getColour(), true);
 		writeNode(writer, "dot-size", o.getDotSize(), true);
@@ -33,8 +32,7 @@ public class TypeDotConverter extends ConverterBase<Style> {
 		writeNode(writer, "sides", o.getSides(), true);
 	}
 
-	@SuppressWarnings("unchecked")
-	public boolean canConvert(Class arg0) {
-		return Style.class.isAssignableFrom(arg0);
+	public boolean canConvert(Class clazz) {
+		return LineChart.Style.class.isAssignableFrom(clazz);
 	}
 }

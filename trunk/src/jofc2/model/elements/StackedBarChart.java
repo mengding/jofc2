@@ -16,16 +16,16 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 package jofc2.model.elements;
 
+import jofc2.model.metadata.Alias;
+import jofc2.model.metadata.Converter;
+import jofc2.util.StackKeyConverter;
+import jofc2.util.StackValueConverter;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import jofc2.model.metadata.Converter;
-import jofc2.model.metadata.Alias;
-import jofc2.util.StackValueConverter;
-import jofc2.util.StackKeyConverter;
 
 
 /**
@@ -177,7 +177,7 @@ public class StackedBarChart extends Element {
             return this;
         }
         
-        private Stack doAdd(List<? extends Object> values) {
+        private Stack doAdd(List<?> values) {
             this.values.addAll(values);
             return this;
         }

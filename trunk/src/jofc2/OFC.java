@@ -15,30 +15,24 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.ConverterMatcher;
+import com.thoughtworks.xstream.converters.SingleValueConverter;
 import jofc2.model.Chart;
 import jofc2.model.Text;
-import jofc2.model.axis.Axis;
-import jofc2.model.axis.Label;
-import jofc2.model.axis.XAxis;
-import jofc2.model.axis.XAxisLabels;
-import jofc2.model.axis.YAxis;
+import jofc2.model.axis.*;
 import jofc2.model.elements.*;
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.org.json.JSONException;
 import jofc2.org.json.JSONObject;
 
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.ConverterMatcher;
-import com.thoughtworks.xstream.converters.SingleValueConverter;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -90,13 +84,20 @@ public class OFC {
 			FilledBarChart.Bar.class,
 			SketchBarChart.Bar.class,
 			LineChart.Dot.class,
-			LineChart.Style.class,
-			NullElement.class,
+            LineChart.Style.class,
+            LineChart.Style.Bow.class,
+            LineChart.Style.Dot.class,
+            LineChart.Style.HallowDot.class,
+            LineChart.Style.SolidDot.class,
+            LineChart.Style.Star.class,
+            NullElement.class,
 			Chart.class,
             ShapeChart.class,
             ShapeChart.Point.class,
             Tooltip.class,
-            Tooltip.Type.class
+            Tooltip.Type.class,
+            AnimatedElement.class,
+            AnimatedElement.OnShow.class
     };
 	private final XStream converter = new XStream(new OFCJSONDriver());
 
@@ -205,7 +206,7 @@ public class OFC {
 	 *           the source collection holding Objects.
 	 * @return a collection of all the objects toString() method invoked
 	 */
-	public static List<String> stringify(List<? extends Object> source) {
+	public static List<String> stringify(List<?> source) {
 		List<String> strings = new ArrayList<String>(source.size());
 		for (Object o : source) {
 			strings.add(o.toString());

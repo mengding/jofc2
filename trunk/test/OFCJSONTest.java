@@ -3,16 +3,17 @@ import jofc2.model.Text;
 import jofc2.model.axis.XAxis;
 import jofc2.model.axis.YAxis;
 import jofc2.model.elements.BarChart;
-import jofc2.model.elements.LineChart;
 import jofc2.model.elements.BarChart.Bar;
+import jofc2.model.elements.LineChart;
 import jofc2.model.elements.LineChart.Dot;
 import jofc2.model.elements.LineChart.Style.Star;
-
+import org.testng.annotations.Test;
 
 
 public class OFCJSONTest  {
 
-	public OFCJSONTest() {
+    @Test
+    public OFCJSONTest() {
 		Chart chart = new Chart();
 		chart.setTitle(new Text("Testline"));
 		chart.setBackgroundColour("#FFFFFF");
@@ -50,8 +51,5 @@ public class OFCJSONTest  {
 		chart.setDecimalSeparatorIsComma(true);
 		chart.computeYAxisRange(15);
 		System.err.println(chart.toDebugString());
-	}
-	public static void main (String string){
-		new OFCJSONTest();
 	}
 }

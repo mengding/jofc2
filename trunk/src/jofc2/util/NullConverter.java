@@ -1,10 +1,8 @@
 package jofc2.util;
 
-import jofc2.model.elements.NullElement;
-
 import com.thoughtworks.xstream.converters.MarshallingContext;
-import com.thoughtworks.xstream.io.json.JsonWriter;
 import com.thoughtworks.xstream.io.path.PathTrackingWriter;
+import jofc2.model.elements.NullElement;
 
 public class NullConverter extends ConverterBase<NullElement> {
 
@@ -15,6 +13,6 @@ public class NullConverter extends ConverterBase<NullElement> {
 
 	@Override
 	public void convert(NullElement o, PathTrackingWriter writer, MarshallingContext mc) {
-		((JsonWriter) writer.underlyingWriter()).setValue(null);
+		writer.underlyingWriter().setValue(null);
 	}
 }
