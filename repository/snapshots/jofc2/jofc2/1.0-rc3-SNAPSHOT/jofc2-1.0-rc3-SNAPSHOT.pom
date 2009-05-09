@@ -43,14 +43,19 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.5</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>5.8</version>
+            <type>jar</type>
+            <classifier>jdk15</classifier>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>test</testSourceDirectory>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -72,9 +77,8 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
-        <sourceDirectory>src</sourceDirectory>
+
         <extensions>
             <extension>
                 <groupId>org.jvnet.wagon-svn</groupId>
