@@ -15,25 +15,20 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
-import java.util.Arrays;
-import java.util.List;
-import java.io.Serializable;
-
-import sun.swing.plaf.synth.StyleAssociation;
-
-import jofc2.model.elements.LineChart.Style.Type;
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.DotConverter;
 import jofc2.util.TypeDotConverter;
 
-public class LineChart extends Element {
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
-	/**
-	 * 
-	 */
+public class LineChart extends AnimatedElement {
+
 	private static final long serialVersionUID = 8807130855547088579L;
 	private static transient final Integer DEFAULT_FONTSIZE = 10;
+
 	private Integer width;
 	@Alias("dot-size")
 	private Integer dotSize;
@@ -119,7 +114,13 @@ public class LineChart extends Element {
 	}
 
 	public LineChart addDots(List<Dot> dots) {
-		getValues().addAll(dots);
+		for (Dot dot : dots) {
+			if (dot == null || dot.getValue() == null) {
+				getValues().add(new NullElement());
+			} else {
+				getValues().add(dot);
+			}
+		}
 		return this;
 	}
 
@@ -240,26 +241,28 @@ public class LineChart extends Element {
 		/**
 		 * Build a simple LineChart with a Style.
 		 * 
-		 * The examples 
-		 * <Code>LineChart lc = new LineChart();</code>
-		 * Type: Hallow-Dot
-		 * Code: lc.setDotStyle(new LineChart.Style(Type.HALLOW_DOT, "#111111",9,9));
+		 * The examples <Code>LineChart lc = new LineChart();</code> Type:
+		 * Hallow-Dot Code: lc.setDotStyle(new LineChart.Style(Type.HALLOW_DOT,
+		 * "#111111",9,9));
 		 * 
-		 * Type: Anchor
-		 * Code: lc.setDotStyle(new LineChart.Style(Type.ANCHOR, "#111111",9,9,90,true).setSides(3));
+		 * Type: Anchor Code: lc.setDotStyle(new LineChart.Style(Type.ANCHOR,
+		 * "#111111",9,9,90,true).setSides(3));
 		 * 
-		 * Type: Star
-		 * Code: lc.setDotStyle(new LineChart.Style(Type.STAR, "#111111",9,9).setRotation(90));
+		 * Type: Star Code: lc.setDotStyle(new LineChart.Style(Type.STAR,
+		 * "#111111",9,9).setRotation(90));
 		 * 
-		 * Type: Solid-Dot
-		 * Code: lc.setDotStyle(new LineChart.Style(Type.SOLID_DOT, "#111111",9,9));
+		 * Type: Solid-Dot Code: lc.setDotStyle(new
+		 * LineChart.Style(Type.SOLID_DOT, "#111111",9,9));
 		 * 
-		 * Type: bow
-		 * Code: lc.setDotStyle(new LineChart.Style(Type.BOW, "#111111",9,9).setRotation(90));
+		 * Type: bow Code: lc.setDotStyle(new LineChart.Style(Type.BOW,
+		 * "#111111",9,9).setRotation(90));
 		 * 
 		 * 
-		 * @param type <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR, STAR and SOLID_DOT
-		 * @param colour colour in #RGB
+		 * @param type
+		 *            <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR,
+		 *            STAR and SOLID_DOT
+		 * @param colour
+		 *            colour in #RGB
 		 */
 		public Style(Type type, String colour) {
 			this(type, colour, 0, 0, null, null);
@@ -268,10 +271,15 @@ public class LineChart extends Element {
 		/**
 		 * Another constructor
 		 * 
-		 * @param type <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR, STAR and SOLID_DOT
-		 * @param colour <code>String</code> colour
-		 * @param dotSize <code>Integer</code> that represent the dot size
-		 * @param haloSize <code>Integer</code> that represent the halo size
+		 * @param type
+		 *            <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR,
+		 *            STAR and SOLID_DOT
+		 * @param colour
+		 *            <code>String</code> colour
+		 * @param dotSize
+		 *            <code>Integer</code> that represent the dot size
+		 * @param haloSize
+		 *            <code>Integer</code> that represent the halo size
 		 */
 		public Style(Type type, String colour, Integer dotSize, Integer haloSize) {
 			this(type, colour, dotSize, haloSize, null, null);
@@ -280,12 +288,19 @@ public class LineChart extends Element {
 		/**
 		 * Another Constructor
 		 * 
-		 * @param type <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR, STAR and SOLID_DOT
-		 * @param colour <code>String</code> colour
-		 * @param dotSize <code>Integer</code> that represent the dot size
-		 * @param haloSize <code>Integer</code> that represent the halo size
-		 * @param rotation <code>Integer</code> that represent the angle
-		 * @param hallow <code>Boolean</code> 
+		 * @param type
+		 *            <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR,
+		 *            STAR and SOLID_DOT
+		 * @param colour
+		 *            <code>String</code> colour
+		 * @param dotSize
+		 *            <code>Integer</code> that represent the dot size
+		 * @param haloSize
+		 *            <code>Integer</code> that represent the halo size
+		 * @param rotation
+		 *            <code>Integer</code> that represent the angle
+		 * @param hallow
+		 *            <code>Boolean</code>
 		 */
 		public Style(Type type, String colour, Integer dotSize,
 				Integer haloSize, Integer rotation, Boolean hallow) {
