@@ -15,21 +15,26 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
+import java.util.Arrays;
+import java.util.List;
+import java.io.Serializable;
+
+import sun.swing.plaf.synth.StyleAssociation;
+
+import jofc2.model.elements.LineChart.Style.Type;
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.DotConverter;
 import jofc2.util.TypeDotConverter;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
+public class LineChart extends Element {
 
-public class LineChart extends AnimatedElement {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 8807130855547088579L;
 	private static transient final Integer DEFAULT_FONTSIZE = 10;
-
-    private Integer width;
+	private Integer width;
 	@Alias("dot-size")
 	private Integer dotSize;
 	@Alias("halo-size")
@@ -114,14 +119,8 @@ public class LineChart extends AnimatedElement {
 	}
 
 	public LineChart addDots(List<Dot> dots) {
-        for (Dot dot : dots) {
-			if (dot == null || dot.getValue() == null) {
-				getValues().add(new NullElement());
-			} else {
-				getValues().add(dot);
-			}
-		}
-        return this;
+		getValues().addAll(dots);
+		return this;
 	}
 
 	public Integer getHaloSize() {
@@ -153,7 +152,8 @@ public class LineChart extends AnimatedElement {
 			this(value, colour, null, null);
 		}
 
-		public Dot(Number value, String colour, Integer dotSize, Integer haloSize) {
+		public Dot(Number value, String colour, Integer dotSize,
+				Integer haloSize) {
 			setValue(value);
 			setColour(colour);
 			setDotSize(dotSize);
@@ -205,15 +205,14 @@ public class LineChart extends AnimatedElement {
 		}
 	}
 
-    @Converter(TypeDotConverter.class)
-	public abstract static class Style implements Serializable {
-		private static enum Type {
-			BOW("bow"),
-            DOT("dot"),
-            HALLOW_DOT("hollow-dot"),
-            ANCHOR("anchor"),
-            STAR("star"),
-            SOLID_DOT("solid-dot");
+	@Converter(TypeDotConverter.class)
+	public static class Style implements Serializable {
+
+		private static final long serialVersionUID = 7167564063732384112L;
+
+		public enum Type {
+			BOW("bow"), DOT("dot"), HALLOW_DOT("hollow-dot"), ANCHOR("anchor"), STAR(
+					"star"), SOLID_DOT("solid-dot");
 
 			private String type;
 
@@ -227,82 +226,124 @@ public class LineChart extends AnimatedElement {
 		}
 
 		private String type;
-		private Integer rotation = 0;
+		private Integer rotation = 90;
 		private Boolean hallow = false;
 		@Alias("halo-size")
-		private Integer haloSize;
+		private Integer haloSize = 2;
 		@Alias("dot-size")
-		private Integer dotSize;
+		private Integer dotSize = 2;
 		private String colour;
-		private Integer sides;
+		private Integer sides = 2;
 
-		
-        public static class Dot extends LineChart.Style {
-			// "dot-style": { "type": "dot", "dot-size": 3, "halo-size": 1, "colour": "#3D5C56" }
-			public Dot(String colour, Integer dotSize, Integer haloSize) {
-                super();
-                setType(Type.DOT.getType());
-				setColour(colour);
-				setDotSize(dotSize);
-				setHaloSize(haloSize);
-            }
+		// "dot-style": { "type": "dot", "dot-size": 4, "halo-size": 2 }
+
+		/**
+		 * Build a simple LineChart with a Style.
+		 * 
+		 * The examples 
+		 * <Code>LineChart lc = new LineChart();</code>
+		 * Type: Hallow-Dot
+		 * Code: lc.setDotStyle(new LineChart.Style(Type.HALLOW_DOT, "#111111",9,9));
+		 * 
+		 * Type: Anchor
+		 * Code: lc.setDotStyle(new LineChart.Style(Type.ANCHOR, "#111111",9,9,90,true).setSides(3));
+		 * 
+		 * Type: Star
+		 * Code: lc.setDotStyle(new LineChart.Style(Type.STAR, "#111111",9,9).setRotation(90));
+		 * 
+		 * Type: Solid-Dot
+		 * Code: lc.setDotStyle(new LineChart.Style(Type.SOLID_DOT, "#111111",9,9));
+		 * 
+		 * Type: bow
+		 * Code: lc.setDotStyle(new LineChart.Style(Type.BOW, "#111111",9,9).setRotation(90));
+		 * 
+		 * 
+		 * @param type <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR, STAR and SOLID_DOT
+		 * @param colour colour in #RGB
+		 */
+		public Style(Type type, String colour) {
+			this(type, colour, 0, 0, null, null);
 		}
 
-        public static final class HallowDot extends LineChart.Style {
-			// "dot-style": { "type": "hollow-dot", "dot-size": 5, "halo-size": 0,"colour": "#3D5C56" }
-			public HallowDot(String colour, Integer dotSize, Integer haloSize) {
+		/**
+		 * Another constructor
+		 * 
+		 * @param type <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR, STAR and SOLID_DOT
+		 * @param colour <code>String</code> colour
+		 * @param dotSize <code>Integer</code> that represent the dot size
+		 * @param haloSize <code>Integer</code> that represent the halo size
+		 */
+		public Style(Type type, String colour, Integer dotSize, Integer haloSize) {
+			this(type, colour, dotSize, haloSize, null, null);
+		}
+
+		/**
+		 * Another Constructor
+		 * 
+		 * @param type <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR, STAR and SOLID_DOT
+		 * @param colour <code>String</code> colour
+		 * @param dotSize <code>Integer</code> that represent the dot size
+		 * @param haloSize <code>Integer</code> that represent the halo size
+		 * @param rotation <code>Integer</code> that represent the angle
+		 * @param hallow <code>Boolean</code> 
+		 */
+		public Style(Type type, String colour, Integer dotSize,
+				Integer haloSize, Integer rotation, Boolean hallow) {
+			if (Type.HALLOW_DOT == type) {
+				// "dot-style": { "type": "hollow-dot", "dot-size": 5,
+				// "halo-size":
+				// 0,"colour": "#3D5C56" }
 				setType(Type.HALLOW_DOT.getType());
 				setColour(colour);
 				setDotSize(dotSize);
 				setHaloSize(haloSize);
-            }
-		}
-
-        public static class Bow extends LineChart.Style {
-			// "dot-style": { "type": "bow", "dot-size": 6, "halo-size": 0,"colour": "#3D5C56", "rotation": 90
-			public Bow(String colour, Integer dotSize, Integer haloSize, Integer rotation) {
-				setType(Type.BOW.getType());
-				setColour(colour);
-				setDotSize(dotSize);
-				setHaloSize(haloSize);
-				setRotation(rotation);
-			}
-		}
-
-        public static class Anchor extends LineChart.Style {
-			// "dot-style": { "type": "anchor", "dot-size": 6, "halo-size": 1,"colour": "#3D5C56", "rotation": 90, "sides": 3 }
-			public Anchor(String colour, Integer dotSize, Integer haloSize, Integer rotation, Integer sides) {
+				setRotation(null);
+				setSides(null);
+				setHallow(null);
+			} else if (Type.ANCHOR == type) {
+				// "dot-style": { "type": "anchor", "dot-size": 6, "halo-size":
+				// 1,"colour": "#3D5C56", "rotation": 90, "sides": 3 }
 				setType(Type.ANCHOR.getType());
 				setColour(colour);
 				setDotSize(dotSize);
 				setHaloSize(haloSize);
 				setRotation(rotation);
 				setSides(sides);
-			}
-		}
-
-        public static class Star extends LineChart.Style {
-			// "dot-style": { "type": "star", "dot-size": 6, "halo-size": 2,"colour": "#f00000", "rotation": 180, "hollow": false }
-			public Star(String colour, Integer dotSize, Integer haloSize, Integer rotation, Boolean hallow) {
+				setHallow(null);
+			} else if (Type.STAR == type) {
+				// "dot-style": { "type": "star", "dot-size": 6, "halo-size":
+				// 2,"colour": "#f00000", "rotation": 180, "hollow": false }
 				setType(Type.STAR.getType());
 				setColour(colour);
 				setDotSize(dotSize);
 				setHaloSize(haloSize);
 				setRotation(rotation);
 				setHallow(hallow);
-			}
-		}
-
-        public static class SolidDot extends LineChart.Style {
-			// "dot-style": { "type": "solid-dot", "dot-size": 3, "halo-size": 1, "colour": "#3D5C56" }
-			public SolidDot(String colour, Integer dotSize, Integer haloSize) {
+				setSides(null);
+			} else if (Type.SOLID_DOT == type) {
+				// "dot-style": { "type": "solid-dot", "dot-size": 3,
+				// "halo-size":
+				// 1, "colour": "#3D5C56" }
 				setType(Type.SOLID_DOT.getType());
 				setColour(colour);
 				setDotSize(dotSize);
 				setHaloSize(haloSize);
+				setRotation(null);
+				setSides(null);
+				setHallow(null);
+			} else if (Type.BOW == type) {
+				// "dot-style": { "type": "bow", "dot-size": 6, "halo-size":
+				// 0,"colour":
+				// "#3D5C56", "rotation": 90
+				setType(Type.BOW.getType());
+				setColour(colour);
+				setDotSize(dotSize);
+				setHaloSize(haloSize);
+				setRotation(rotation);
+				setSides(null);
+				setHallow(null);
 			}
 		}
-		
 
 		public Integer getHaloSize() {
 			return haloSize;
@@ -362,12 +403,13 @@ public class LineChart extends AnimatedElement {
 			return sides;
 		}
 
-		public void setSides(Integer sides) {
+		public Style setSides(Integer sides) {
 			this.sides = sides;
+			return this;
 		}
 	}
 
-    public Style getDotStyle() {
+	public Style getDotStyle() {
 		return dotStyle;
 	}
 
