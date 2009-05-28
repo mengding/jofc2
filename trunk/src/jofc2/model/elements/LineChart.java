@@ -57,6 +57,11 @@ public class LineChart extends AnimatedElement {
 	public LineChart() {
 		this("line");
 	}
+	
+	public LineChart(Style dotStyle) {
+		this();
+		this.setDotStyle(dotStyle);
+	}
 
 	protected LineChart(String type) {
 		super(type);
@@ -144,6 +149,18 @@ public class LineChart extends AnimatedElement {
 		private String colour;
 		@Alias("tip")
 		private String tooltip;
+
+		@Alias("on-click")
+		private String onClick;
+
+		public String getOnClick() {
+			return onClick;
+		}
+
+		public void setOnClick(String onClick) {
+			this.onClick = onClick;
+		}
+		
 
 		public Dot(Number value) {
 			this(value, null, null, null);
@@ -266,6 +283,16 @@ public class LineChart extends AnimatedElement {
 		 */
 		public Style(Type type, String colour) {
 			this(type, colour, 0, 0, null, null);
+		}
+		/**
+		 * Another Constructor
+		 *
+		 * @param type
+		 *            <class>Type</class> object BOW, DOT, HALLOW_DOT, ANCHOR,
+		 *            STAR and SOLID_DOT
+		 */
+		public Style(Type type) {
+			this(type, null, 0, 0, null, null);
 		}
 
 		/**
