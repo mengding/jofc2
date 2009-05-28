@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class BarChart extends Element {
+public class BarChart extends AnimatedElement {
 
     private static final long serialVersionUID = 6695611795831460343L;
 	private String colour;
@@ -103,6 +103,16 @@ public class BarChart extends Element {
 		private String colour;
 		@Alias("tip")
 		private String tooltip;
+		@Alias("on-click")
+		private String onClick;
+
+		public String getOnClick() {
+			return onClick;
+		}
+
+		public void setOnClick(String onClick) {
+			this.onClick = onClick;
+		}
 
 		public Bar(Number top, Number bottom, String colour) {
 			setTop(top);

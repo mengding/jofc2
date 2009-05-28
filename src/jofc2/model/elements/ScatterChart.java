@@ -23,7 +23,7 @@ import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.OnShowConverter;
 
-public class ScatterChart extends Element {
+public class ScatterChart extends AnimatedElement {
 
 	private static final String TYPE = "scatter";
 	private static final long serialVersionUID = 3029567780918048503L;
