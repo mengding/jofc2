@@ -78,7 +78,7 @@ public class HorizontalBarChart extends Element {
 		private static final long serialVersionUID = 3148075877503179797L;
 		private final Number right;
 		private Number left;
-		private String tooltip;
+		private String tooltip="";
 
 		public Bar(Number right) {
 			this(null, right);
