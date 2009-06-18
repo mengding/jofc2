@@ -37,7 +37,7 @@ public class LineChart extends AnimatedElement {
 	private String colour;
 	private String axis;
 	@Alias("dot-style")
-	private Style dotStyle;
+	private Style dotStyle = new Style(Style.Type.SOLID_DOT); //default
 
 	public String getYaxis() {
 		return axis;
@@ -243,7 +243,7 @@ public class LineChart extends AnimatedElement {
 			}
 		}
 
-		private String type;
+		private String type = "solid-dot";
 		private Integer rotation = 90;
 		private Boolean hallow = false;
 		@Alias("halo-size")
@@ -282,7 +282,7 @@ public class LineChart extends AnimatedElement {
 		 *            colour in #RGB
 		 */
 		public Style(Type type, String colour) {
-			this(type, colour, 0, 0, null, null);
+			this(type, colour, 2, 2, null, null);
 		}
 		/**
 		 * Another Constructor
@@ -292,7 +292,7 @@ public class LineChart extends AnimatedElement {
 		 *            STAR and SOLID_DOT
 		 */
 		public Style(Type type) {
-			this(type, null, 0, 0, null, null);
+			this(type, null, 2, 2, null, null);
 		}
 
 		/**
