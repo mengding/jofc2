@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
-import jofc2.util.OnShowConverter;
+import jofc2.util.ScatterChartPointConverter;
 
 public class ScatterChart extends AnimatedElement {
 
@@ -69,7 +69,7 @@ public class ScatterChart extends AnimatedElement {
 		this.dotSize = dotSize;
 	}
 
-	@Converter(OnShowConverter.class)
+	@Converter(ScatterChartPointConverter.class)
 	public static class Point implements Serializable {
 
 		private Number x;
