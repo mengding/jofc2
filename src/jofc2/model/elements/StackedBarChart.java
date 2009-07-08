@@ -194,14 +194,21 @@ public class StackedBarChart extends Element {
     public static class StackValue implements Serializable {
         private Number val;
         private String colour;
+        @Alias("tip")
+        private String tooltip;
         
         public StackValue(Number value) {
-            this(value, null);
+            this(value, null, null);
         }
         
         public StackValue(Number value, String colour) {
+        	this(value, colour, null);
+        }
+        
+        public StackValue(Number value, String colour, String tooltip) {
             setValue(value);
             setColour(colour);
+            setTooltip(tooltip);
         }
         
         public Number getValue() {
@@ -219,6 +226,15 @@ public class StackedBarChart extends Element {
         
         public StackValue setColour(String colour) {
             this.colour = colour;
+            return this;
+        }
+        
+        public String getTooltip() {
+            return tooltip;
+        }
+        
+        public StackValue setTooltip(String tooltip) {
+            this.tooltip = tooltip;
             return this;
         }
     }
