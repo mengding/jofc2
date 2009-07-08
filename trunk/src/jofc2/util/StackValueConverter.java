@@ -26,6 +26,7 @@ public class StackValueConverter extends ConverterBase<StackValue> {
 	public void convert(StackValue o, PathTrackingWriter writer, MarshallingContext mc) {
 		writeNode(writer, "val", o.getValue(), false);
 		writeNode(writer, "colour", o.getColour(), true);
+		writeNode(writer, "tip", o.getTooltip(), true);
 	}
 
 	@SuppressWarnings("unchecked")
