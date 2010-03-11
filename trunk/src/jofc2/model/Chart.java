@@ -22,6 +22,7 @@ import java.util.Collection;
 
 import jofc2.OFC;
 import jofc2.OFCException;
+import jofc2.model.axis.RadarAxis;
 import jofc2.model.axis.XAxis;
 import jofc2.model.axis.YAxis;
 import jofc2.model.elements.Element;
@@ -41,6 +42,7 @@ public class Chart implements Serializable {
 	private XAxis x_axis;
 	private YAxis y_axis;
 	private YAxis y_axis_right;
+	private RadarAxis radar_axis;
 	private Text y_legend;
 	private Text x_legend;
 	private String bg_colour;
@@ -100,6 +102,15 @@ public class Chart implements Serializable {
 
 	public YAxis getYAxisRight() {
 		return y_axis_right;
+	}
+	
+	public RadarAxis getRadarAxis() {
+		return radar_axis;
+	}
+
+	public Chart setRadarAxis(RadarAxis radarAxis) {
+		this.radar_axis = radarAxis;
+		return this;
 	}
 
 	public Text getTitle() {
@@ -319,7 +330,7 @@ public class Chart implements Serializable {
 	public void setLegend(Legend legend) {
 		this.legend = legend;
 	}
-	
+		
 	public void setInnerBackgroundColour(String inner_bg_colour) {
 		this.inner_bg_colour = inner_bg_colour;
 	}

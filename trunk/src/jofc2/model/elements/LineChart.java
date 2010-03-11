@@ -15,20 +15,19 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
+
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.DotConverter;
 import jofc2.util.TypeDotConverter;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-
 public class LineChart extends AnimatedElement {
 
 	private static final long serialVersionUID = 8807130855547088579L;
 	private static transient final Integer DEFAULT_FONTSIZE = 10;
-
 	private Integer width;
 	@Alias("dot-size")
 	private Integer dotSize;
@@ -38,6 +37,7 @@ public class LineChart extends AnimatedElement {
 	private String axis;
 	@Alias("dot-style")
 	private Style dotStyle = new Style(Style.Type.SOLID_DOT); //default
+	private boolean loop;
 
 	public String getYaxis() {
 		return axis;
@@ -50,7 +50,7 @@ public class LineChart extends AnimatedElement {
 	/**
 	 * Tells the LineChart to Use the right YAxis
 	 */
-	public void setRightYAxis() {
+	public void setRightYAxis(){
 		setYAxis("right");
 	}
 
@@ -62,7 +62,7 @@ public class LineChart extends AnimatedElement {
 		this();
 		this.setDotStyle(dotStyle);
 	}
-
+	
 	protected LineChart(String type) {
 		super(type);
 		setFontSize(DEFAULT_FONTSIZE);
@@ -137,10 +137,21 @@ public class LineChart extends AnimatedElement {
 		this.haloSize = haloSize;
 		return this;
 	}
+	
+	public boolean isLoop() {
+		return loop;
+	}
+
+	public void setLoop(boolean loop) {
+		this.loop = loop;
+	}
+	
 
 	@Converter(DotConverter.class)
 	public static class Dot implements Serializable {
 
+		private static final long serialVersionUID = -2405878719335954700L;
+		
 		@Alias("halo-size")
 		private Integer haloSize;
 		@Alias("dot-size")
@@ -149,18 +160,8 @@ public class LineChart extends AnimatedElement {
 		private String colour;
 		@Alias("tip")
 		private String tooltip;
-
 		@Alias("on-click")
 		private String onClick;
-
-		public String getOnClick() {
-			return onClick;
-		}
-
-		public void setOnClick(String onClick) {
-			this.onClick = onClick;
-		}
-		
 
 		public Dot(Number value) {
 			this(value, null, null, null);
@@ -220,6 +221,14 @@ public class LineChart extends AnimatedElement {
 
 		public void setTooltip(String tooltip) {
 			this.tooltip = tooltip;
+		}
+		
+		public String getOnClick() {
+			return onClick;
+		}
+
+		public void setOnClick(String onClick) {
+			this.onClick = onClick;
 		}
 	}
 
@@ -367,6 +376,14 @@ public class LineChart extends AnimatedElement {
 				// "halo-size":
 				// 1, "colour": "#3D5C56" }
 				setType(Type.SOLID_DOT.getType());
+				setColour(colour);
+				setDotSize(dotSize);
+				setHaloSize(haloSize);
+				setRotation(null);
+				setSides(null);
+				setHallow(null);
+			} else if (Type.DOT == type) {
+				setType(Type.DOT.getType());
 				setColour(colour);
 				setDotSize(dotSize);
 				setHaloSize(haloSize);
