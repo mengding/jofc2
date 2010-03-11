@@ -69,7 +69,7 @@ public class OFC {
 			HorizontalBarChart.class,
 			LineChart.class,
 			ScatterChart.class,
-			AreaHollowChart.class,
+			AreaChart.class,
 			PieChart.Slice.class,
 			HorizontalBarChart.Bar.class,
 			Label.Rotation.class,
@@ -92,7 +92,10 @@ public class OFC {
             Tooltip.class,
             Tooltip.Type.class,
             AnimatedElement.class,
-            AnimatedElement.OnShow.class
+            AnimatedElement.OnShow.class,
+            RadarAxis.class,
+            RadarAxisLabels.class,
+            RadarSpokeLabels.class
     };
 	private final XStream converter = new XStream(new OFCJSONDriver());
 
