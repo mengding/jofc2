@@ -15,11 +15,6 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-
 import jofc2.OFC;
 import jofc2.OFCException;
 import jofc2.model.axis.RadarAxis;
@@ -28,6 +23,11 @@ import jofc2.model.axis.YAxis;
 import jofc2.model.elements.Element;
 import jofc2.model.elements.Legend;
 import jofc2.model.elements.Tooltip;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * This is the most important class in the Java OFC library. Start here,
@@ -103,7 +103,7 @@ public class Chart implements Serializable {
 	public YAxis getYAxisRight() {
 		return y_axis_right;
 	}
-	
+
 	public RadarAxis getRadarAxis() {
 		return radar_axis;
 	}
@@ -211,7 +211,7 @@ public class Chart implements Serializable {
 	 * is <code>false</code> the American format (e.g. 1,234.45) is used. If the
 	 * given value is <code>true</code> the German format (1.234,45) is used.
 	 * Other formats like the French one are not yet supported by OFC.
-	 * 
+	 *
 	 * @param is_decimal_separator_comma
 	 *           <code>true</code> sets the decimal format to German,
 	 *           <code>false</code> to American.
@@ -232,7 +232,7 @@ public class Chart implements Serializable {
 	 * Configures OFC to use fixed decimals (with num_decimals length). E.g.
 	 * num_decimals=2 for <code>true</code> 1.1 will be 1.10 or 1 will be 1.00,
 	 * for <code>false</code> 1.1 remains 1.1 and 1 remains 1
-	 * 
+	 *
 	 * @param is_fixed_num_decimals_forced
 	 *           <code>true</code> sets OFC to use fixed decimal length
 	 *           <code>false</code> switches off fixed decimal length
@@ -276,29 +276,30 @@ public class Chart implements Serializable {
 	}
 
 	public void computeYAxisRange(int steps) {
-		Double min = null;
-		double max = 0;
-		double stepWidth = 1;
 		if (getElements() != null) {
 			if (getYAxis() == null) {
 				YAxis ya = new YAxis();
 				this.setYAxis(ya);
 			}
-			for (Element e : getElements()) {
+		    Double min = getYAxis().getMin();
+            double max = 0;
+            for (Element e : getElements()) {
 				max = Math.max(max, e.getMaxValue());
 				min = nullSafeMin(min, e.getMinValue());
 			}
             if (min == null) {
                 min = 0.0;
             }
-            stepWidth = getStepWidth(Math.abs(max - min), steps);
-			min = Math.floor(min / stepWidth) * stepWidth;
-			max = Math.ceil(max / stepWidth) * stepWidth;
+            double stepWidth = getStepWidth(Math.abs(max - min), steps);
+            if(stepWidth != 0) {
+			    min = Math.floor(min / stepWidth) * stepWidth;
+			    max = Math.ceil(max / stepWidth) * stepWidth;
+            }
 			getYAxis().setRange(min, max, stepWidth);
 
 		}
 	}
-    
+
     private Double nullSafeMin(Double min, double doubleValue) {
         if (null == min) {
             min = doubleValue;
@@ -321,16 +322,16 @@ public class Chart implements Serializable {
 		return result * Math.pow(10, exponent);
 	}
 
-	
+
 	public Legend getLegend() {
 		return legend;
 	}
 
-	
+
 	public void setLegend(Legend legend) {
 		this.legend = legend;
 	}
-		
+
 	public void setInnerBackgroundColour(String inner_bg_colour) {
 		this.inner_bg_colour = inner_bg_colour;
 	}
