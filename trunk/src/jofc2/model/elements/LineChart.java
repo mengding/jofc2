@@ -15,14 +15,14 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.DotConverter;
 import jofc2.util.TypeDotConverter;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 public class LineChart extends AnimatedElement {
 
@@ -108,8 +108,8 @@ public class LineChart extends AnimatedElement {
 			if (number == null) {
 				getValues().add(new NullElement());
 			} else {
-				getValues().add(number);
-			}
+                getValues().add(new Dot(number));
+            }
 		}
 		return this;
 	}
