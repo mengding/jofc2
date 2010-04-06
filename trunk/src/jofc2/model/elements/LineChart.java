@@ -108,7 +108,7 @@ public class LineChart extends AnimatedElement {
 			if (number == null) {
 				getValues().add(new NullElement());
 			} else {
-                getValues().add(new Dot(number));
+                getValues().add(number);
             }
 		}
 		return this;

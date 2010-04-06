@@ -22,7 +22,7 @@ public class LineChartTest
         Chart c = new Chart();
         c.addElements(lc);
 
-        String s = OFC.getInstance().prettyPrint(c, 4); 
+        String s = OFC.getInstance().prettyPrint(c, 4);
         System.out.println("RENDERED CHART:" + s);
         assert !s.contains("\"@class\"");
     }
@@ -41,13 +41,14 @@ public class LineChartTest
         c.addElements(lc);
         JSONObject jsonResult=  new JSONObject(OFC.getInstance().render(c));
         JSONArray elements = jsonResult.getJSONArray("elements");
+        assert elements.getJSONObject(0).getString("type").equals("line");
         JSONArray values = elements.getJSONObject(0).getJSONArray("values");
         assert values.length() == 6;
-        assert values.getJSONObject(0).getInt("value") == 10;
-        assert values.getJSONObject(1).getInt("value") == 1;
-        assert values.getJSONObject(2).getInt("value") == 5;
-        assert values.getJSONObject(3).getInt("value") == 4;
-        assert values.getJSONObject(4).getInt("value") == 6;
+        assert values.getInt(0) == 10;
+        assert values.getInt(1) == 1;
+        assert values.getInt(2) == 5;
+        assert values.getInt(3) == 4;
+        assert values.getInt(4) == 6;
         assert values.getJSONObject(5).getInt("value") == 15;
         assert values.getJSONObject(5).getString("colour").equals("#121212");
 
