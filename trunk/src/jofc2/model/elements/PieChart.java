@@ -15,15 +15,15 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
+import jofc2.model.metadata.Alias;
+import jofc2.model.metadata.Converter;
+import jofc2.util.PieChartSliceConverter;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
-import jofc2.model.metadata.Alias;
-import jofc2.model.metadata.Converter;
-import jofc2.util.PieChartSliceConverter;
 
 public class PieChart extends Element {
 
@@ -82,7 +82,7 @@ public class PieChart extends Element {
 	}
 
 	public PieChart addValues(Number... values) {
-		getValues().addAll(Arrays.asList(values));
+		addValues(Arrays.asList(values));
 		return this;
 	}
 
