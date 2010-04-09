@@ -46,7 +46,25 @@ public abstract class Element implements Serializable {
 	private String key_on_click;
 	@Alias("on-click")
 	private String onClick;
-	
+	private String axis;
+
+
+	public String getYaxis() {
+		return axis;
+	}
+
+	public void setYAxis(String yAxis) {
+		this.axis = yAxis;
+	}
+
+	/**
+	 * Tells the LineChart to Use the right YAxis
+	 */
+	public void setRightYAxis(){
+		setYAxis("right");
+	}
+
+
 	private List<Object> values = new ArrayList<Object>();
 
 	protected Element(String type) {

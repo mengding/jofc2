@@ -34,25 +34,9 @@ public class LineChart extends AnimatedElement {
 	@Alias("halo-size")
 	private Integer haloSize;
 	private String colour;
-	private String axis;
 	@Alias("dot-style")
 	private Style dotStyle = new Style(Style.Type.SOLID_DOT); //default
 	private boolean loop;
-
-	public String getYaxis() {
-		return axis;
-	}
-
-	public void setYAxis(String yAxis) {
-		this.axis = yAxis;
-	}
-
-	/**
-	 * Tells the LineChart to Use the right YAxis
-	 */
-	public void setRightYAxis(){
-		setYAxis("right");
-	}
 
 	public LineChart() {
 		this("line");
