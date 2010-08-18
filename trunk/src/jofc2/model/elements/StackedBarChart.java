@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 
+
 /**
  * The stacked bar chart allows you to draw a bar chart divided
  * into value regions.
@@ -123,7 +124,7 @@ public class StackedBarChart extends Element {
      */
     @SuppressWarnings("unchecked")
     public Stack stack(int index) {
-        return new Stack((List<Object>) getValues().get(index));
+        return new Stack((List<StackValue>) getValues().get(index));
     }
     
     /**
@@ -146,14 +147,21 @@ public class StackedBarChart extends Element {
      * you to add numbers or complex values with custom data.
      */
     public static class Stack implements Serializable {
-        private transient List<Object> values;
+		private static final long serialVersionUID = 7920144003613178642L;
+		private transient List<StackValue> values;
+        private double maxYAxis = 0;
         
         public Stack() {
-            values = new ArrayList<Object>();
+            values = new ArrayList<StackValue>();
+            maxYAxis = 0;
         }
         
-        Stack(List<Object> values) {
+        Stack(List<StackValue> values) {
             this.values = values;
+            maxYAxis = 0;
+            for (StackValue value : values) {
+            	maxYAxis += value.getValue().doubleValue();
+            }
         }
         
         public Stack addStackValues(StackValue... values) {
@@ -171,20 +179,28 @@ public class StackedBarChart extends Element {
         public Stack addValues(List<Number> numbers) {
       	  for (Number number: numbers){
       		  if (number != null) {
-      		  this.doAdd(Collections.singletonList(new StackValue(number)));
+      			  maxYAxis += number.doubleValue();
+      			  this.doAdd(Collections.singletonList(new StackValue(number)));
       		  }
       	  }
             return this;
         }
         
-        private Stack doAdd(List<?> values) {
+        private Stack doAdd(List<StackValue> values) {
+            for (StackValue value : values) {
+            	maxYAxis += value.getValue().doubleValue();
+            }
             this.values.addAll(values);
             return this;
         }
         
-        List<Object> getBackingList() {
+        List<StackValue> getBackingList() {
             return this.values;
         }
+
+		public double getMaxValue() {
+			return maxYAxis;
+		}
     }
     
     /**
@@ -192,7 +208,8 @@ public class StackedBarChart extends Element {
      */
     @Converter(StackValueConverter.class)
     public static class StackValue implements Serializable {
-        private Number val;
+		private static final long serialVersionUID = 75748080964745390L;
+		private Number val;
         private String colour;
         @Alias("tip")
         private String tooltip;
@@ -244,7 +261,8 @@ public class StackedBarChart extends Element {
      */
     @Converter(StackKeyConverter.class)
     public static class Key implements Serializable {
-        private String colour;
+		private static final long serialVersionUID = 2964468354214476478L;
+		private String colour;
         private String text;
         @Alias(value = "font-size")
         private Integer fontSize;

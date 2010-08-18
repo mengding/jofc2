@@ -187,7 +187,14 @@ public class Chart implements Serializable {
 	 */
     @Override
     public String toString() throws OFCException {
-		return OFC.getInstance().render(this);
+		String output = OFC.getInstance().render(this);
+		while (output.indexOf("\\\\") > -1) {// Replace all double \\ with single \
+			output = output.replace("\\\\", "\\");
+		}
+		while (output.indexOf("\"animate\":[]") > -1) {// Disable animation if none set/added
+			output = output.replace("\"animate\":[]", "\"animate\":false");
+		}
+		return output;
 	}
 
 	/**

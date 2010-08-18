@@ -210,6 +210,12 @@ public class PieChart extends Element {
 			return onClick;
 		}
 
+		/**
+		 * 
+		 * @param onClick :
+		 * <br>&nbsp;&nbsp;&nbsp;If you need to pass in single quote &nbsp;&nbsp;&nbsp;(escaped), use \\\'
+		 * <br>&nbsp;&nbsp;&nbsp;If you need to pass in double quotes (escaped), use \\\"
+		 */
 		public void setOnClick(String onClick) {
 			this.onClick = onClick;
 		}
