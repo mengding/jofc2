@@ -15,22 +15,18 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.util;
 
-import jofc2.model.elements.ScatterChart;
-
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.path.PathTrackingWriter;
+import jofc2.model.elements.AbstractDot;
 
-public class ScatterChartPointConverter extends AbstractDotConverter<ScatterChart.Point> {
+public abstract class AbstractDotConverter<D extends AbstractDot> extends ConverterBase<D> {
 
 	@Override
-	public void convert(ScatterChart.Point o, PathTrackingWriter writer, MarshallingContext mc) {
-        super.convert(o, writer, mc);
-        writeNode(writer, "x", o.getX(), false);
-		writeNode(writer, "y", o.getY(), false);
-	}
-
-    @SuppressWarnings("unchecked")
-	public boolean canConvert(Class c) {
-		return ScatterChart.Point.class.isAssignableFrom(c);
+	public void convert(D o, PathTrackingWriter writer, MarshallingContext mc) {
+		writeNode(writer, "colour", o.getColour(), true);
+		writeNode(writer, "dot-size", o.getDotSize(), true);
+		writeNode(writer, "halo-size", o.getHaloSize(), true);
+		writeNode(writer, "tip", o.getTooltip(), true);
+		writeNode(writer, "on-click", o.getOnClick(), true);
 	}
 }
