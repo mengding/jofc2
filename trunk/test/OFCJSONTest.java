@@ -4,9 +4,10 @@ import jofc2.model.axis.XAxis;
 import jofc2.model.axis.YAxis;
 import jofc2.model.elements.BarChart;
 import jofc2.model.elements.LineChart;
+import jofc2.model.elements.AbstractDot;
 import jofc2.model.elements.BarChart.Bar;
 import jofc2.model.elements.LineChart.Dot;
-import jofc2.model.elements.LineChart.Style.Type;
+import jofc2.model.elements.AbstractDot.Style.Type;
 
 public class OFCJSONTest {
 
@@ -16,7 +17,7 @@ public class OFCJSONTest {
 		chart.setBackgroundColour("#FFFFFF");
 		LineChart lc = new LineChart();
 		lc.setText("Sanitärbranch");
-		lc.setDotStyle(new LineChart.Style(Type.STAR, "#111111", 9, 9)
+		lc.setDotStyle(new AbstractDot.Style(Type.STAR, "#111111", 9, 9)
 				.setRotation(90));
 		LineChart lc2 = new LineChart();
 		lc2.setColour("#FF0000");

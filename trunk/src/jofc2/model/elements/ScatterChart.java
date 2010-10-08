@@ -15,21 +15,20 @@ See <http://www.gnu.org/licenses/lgpl-3.0.txt>.
  */
 package jofc2.model.elements;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
-
 import jofc2.model.metadata.Alias;
 import jofc2.model.metadata.Converter;
 import jofc2.util.ScatterChartPointConverter;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 public class ScatterChart extends AnimatedElement {
 
 	private static final String TYPE = "scatter";
 	private static final long serialVersionUID = 3029567780918048503L;
 	private String colour;
-	@Alias("dot-size")
-	private Integer dotSize;
+    @Alias("dot-style")
+    private AbstractDot.Style dotStyle = new AbstractDot.Style(AbstractDot.Style.Type.H0LLOW_DOT);
 
 	public ScatterChart() {
 		super(TYPE);
@@ -39,7 +38,7 @@ public class ScatterChart extends AnimatedElement {
         super(style.getStyle());
     }
 
-	public ScatterChart addPoints(Point... points) {
+    public ScatterChart addPoints(Point... points) {
 		getValues().addAll(Arrays.asList(points));
 		return this;
 	}
@@ -57,30 +56,43 @@ public class ScatterChart extends AnimatedElement {
 		return colour;
 	}
 
-	public void setColour(String colour) {
+	public ScatterChart setColour(String colour) {
 		this.colour = colour;
-	}
+        return this;
+    }
 
-	public Integer getDotSize() {
-		return dotSize;
-	}
+    public AbstractDot.Style getDotStyle() {
+        return dotStyle;
+    }
 
-	public void setDotSize(Integer dotSize) {
-		this.dotSize = dotSize;
-	}
+    public ScatterChart setDotStyle(AbstractDot.Style dotStyle) {
+        this.dotStyle = dotStyle;
+        return this;
+    }
 
-	@Converter(ScatterChartPointConverter.class)
-	public static class Point implements Serializable {
+    @Converter(ScatterChartPointConverter.class)
+	public static class Point extends AbstractDot {
 
 		private Number x;
 		private Number y;
 
 		public Point(Number x, Number y) {
-			this.x = x;
-			this.y = y;
+			this(x, y, null, null, null);
 		}
 
-		public Number getX() {
+        public Point(Number x, Number y, Integer dotSize)
+        {
+            this(x, y, null, dotSize, null);
+        }
+
+        public Point(Number x, Number y, String colour, Integer dotSize, Integer haloSize)
+        {
+            super(colour, dotSize, haloSize);
+            this.x = x;
+            this.y = y;
+        }
+
+        public Number getX() {
 			return x;
 		}
 

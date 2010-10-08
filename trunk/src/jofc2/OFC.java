@@ -84,7 +84,7 @@ public class OFC {
 			FilledBarChart.Bar.class,
 			SketchBarChart.Bar.class,
 			LineChart.Dot.class,
-            LineChart.Style.class,
+            AbstractDot.Style.class,
             NullElement.class,
 			Chart.class,
             ShapeChart.class,
