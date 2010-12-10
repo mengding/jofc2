@@ -18,23 +18,18 @@ package jofc2.model;
 import java.io.Serializable;
 
 public class Text implements Serializable {
-
-	/**
-	 * 
-	 */
+	
 	public static final String TEXT_ALIGN_CENTER = "center";
 	public static final String TEXT_ALIGN_LEFT = "left";
 	public static final String TEXT_ALIGN_RIGHT = "right";
 	private static final long serialVersionUID = -2390229886841547192L;
 	private String text;
-	private String style;
+	private String style = ""; // issue 29
 
-	public Text() {
-		this(null, null);
-	}
+	public Text() {}
 
 	public Text(String text) {
-		this(text, null);
+		setText(text);
 	}
 
 	public Text(String text, String style) {
